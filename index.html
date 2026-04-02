@@ -820,6 +820,13 @@ footer {
   .grid-2 { grid-template-columns: 1fr; }
 }
 
+/* ─── solution gallery responsive ─── */
+@media (max-width: 768px) {
+  .sol-horizontal { flex-direction: column !important; }
+  .sol-horizontal > div { flex: none !important; width: 100% !important; }
+  .sol-horizontal > div:last-child { padding: 16px 20px !important; }
+}
+
 /* ─── screenshot frames ─── */
 .screenshot-grid {
   display: grid;
@@ -2158,31 +2165,60 @@ MZ세대 신임 팀장들의 <span class="highlight">리더십 전환을 도울<
 
     <!-- 솔루션 갤러리 -->
     <h4 style="font-size:16px;font-weight:700;color:var(--navy);margin-top:32px;margin-bottom:16px;">실제 운영 중인 AI 교육 솔루션</h4>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;" class="grid-3">
-      <div class="screenshot-frame">
-        <div class="screenshot-label">면담 코칭 트레이너</div>
-        <img src="screenshot-coaching.png" alt="AI 면담 코칭 시뮬레이션">
+    <div style="display:flex;flex-direction:column;gap:16px;">
+
+      <!-- 1. 면담 코칭: 좌측 이미지 + 우측 텍스트 (가로형) -->
+      <div class="sol-horizontal" style="display:flex;gap:20px;align-items:center;background:var(--surface);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--border);">
+        <div style="flex:1.2;min-width:0;"><img src="screenshot-coaching.png" alt="AI 면담 코칭 시뮬레이션" style="width:100%;display:block;"></div>
+        <div style="flex:1;padding:24px 28px 24px 0;">
+          <div style="font-size:11px;font-weight:600;color:#0284c7;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:6px;">Coaching Simulation</div>
+          <div style="font-size:18px;font-weight:700;color:var(--navy);margin-bottom:8px;">면담 코칭 트레이너</div>
+          <div style="font-size:13px;color:var(--ink-light);line-height:1.65;">SBI 프레임워크 기반 1:1 면담 시뮬레이션. AI가 팀원 역할, 학습자가 리더 역할. 감정 3단계(방어→저항→수용) 변화를 경험합니다.</div>
+        </div>
       </div>
-      <div class="screenshot-frame">
-        <div class="screenshot-label">인바스켓 시뮬레이션</div>
-        <img src="screenshot-inbasket.png" alt="AI 인바스켓 시뮬레이션">
+
+      <!-- 2. 인바스켓: 다크 배경 풀와이드 (히어로형) -->
+      <div style="position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-md);">
+        <img src="screenshot-inbasket.png" alt="AI 인바스켓 시뮬레이션" style="width:100%;display:block;filter:brightness(0.7);">
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:28px 32px;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);">
+          <div style="font-size:11px;font-weight:600;color:#a78bfa;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:4px;">In-Basket Simulation</div>
+          <div style="font-size:18px;font-weight:700;color:#fff;margin-bottom:6px;">인바스켓 시뮬레이션</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.75);line-height:1.6;">60분 안에 15~20건의 이메일을 처리하는 의사결정 시뮬레이션. 위임·에스컬·보류·회신 판단력을 평가합니다.</div>
+        </div>
       </div>
-      <div class="screenshot-frame">
-        <div class="screenshot-label">그룹 디스커션</div>
-        <img src="screenshot-gd.png" alt="AI 그룹 디스커션 시뮬레이션">
+
+      <!-- 3. GD + 케이스: 2칼럼 카드 (컴팩트형) -->
+      <div class="grid-2" style="gap:16px;">
+        <div style="background:var(--surface);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--border);">
+          <img src="screenshot-gd.png" alt="AI 그룹 디스커션 시뮬레이션" style="width:100%;display:block;">
+          <div style="padding:16px 20px;">
+            <div style="font-size:11px;font-weight:600;color:#047857;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:4px;">Group Discussion</div>
+            <div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:4px;">그룹 디스커션</div>
+            <div style="font-size:12px;color:var(--ink-light);line-height:1.6;">AI 참여자 5명과 실시간 토론. 리더십·논리력·협업 6개 역량 평가.</div>
+          </div>
+        </div>
+        <div style="background:var(--surface);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--border);">
+          <img src="screenshot-case.png" alt="AI 케이스 스터디 시뮬레이션" style="width:100%;display:block;">
+          <div style="padding:16px 20px;">
+            <div style="font-size:11px;font-weight:600;color:#b45309;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:4px;">Case Study</div>
+            <div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:4px;">비즈니스 케이스</div>
+            <div style="font-size:12px;color:var(--ink-light);line-height:1.6;">경영 의사결정 시뮬레이션. 이해관계자 면담 → 전략 수립 → 결과 확인.</div>
+          </div>
+        </div>
       </div>
+
+      <!-- 4. AC 플랫폼: 우측 이미지 + 좌측 텍스트 (역방향 가로형) -->
+      <div class="sol-horizontal" style="display:flex;gap:20px;align-items:center;background:var(--surface);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--border);">
+        <div style="flex:1;padding:24px 0 24px 28px;">
+          <div style="font-size:11px;font-weight:600;color:#e11d48;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:6px;">Assessment Center</div>
+          <div style="font-size:18px;font-weight:700;color:var(--navy);margin-bottom:8px;">AC/DC 통합 플랫폼</div>
+          <div style="font-size:13px;color:var(--ink-light);line-height:1.65;">인바스켓 + GD + 롤플레이 + 케이스를 하나의 흐름으로 연결. 종합 역량 평가 프로그램을 구성합니다.</div>
+        </div>
+        <div style="flex:1.2;min-width:0;"><img src="screenshot-ac.png" alt="AI AC/DC 통합 플랫폼" style="width:100%;display:block;"></div>
+      </div>
+
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;" class="grid-2">
-      <div class="screenshot-frame">
-        <div class="screenshot-label">비즈니스 케이스 시뮬레이션</div>
-        <img src="screenshot-case.png" alt="AI 케이스 스터디 시뮬레이션">
-      </div>
-      <div class="screenshot-frame">
-        <div class="screenshot-label">AC/DC 통합 플랫폼</div>
-        <img src="screenshot-ac.png" alt="AI AC/DC 통합 플랫폼">
-      </div>
-    </div>
-    <p style="font-size:13px;color:var(--ink-muted);margin-top:12px;text-align:center;">각 솔루션이 고유한 컬러 테마를 가지고 있습니다 — AI가 만들었지만 "다 비슷한" 디자인이 아닙니다.</p>
+    <p style="font-size:13px;color:var(--ink-muted);margin-top:16px;text-align:center;">5개 솔루션이 각각 다른 교육 목적과 시뮬레이션 방식을 가지고 있습니다.</p>
   </div>
 
   <!-- 에이전트 역할 상세 소개 -->
