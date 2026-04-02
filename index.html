@@ -3497,8 +3497,13 @@ const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) e.target.classList.add('visible');
   });
-}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+}, { threshold: 0.01, rootMargin: '0px 0px 0px 0px' });
 document.querySelectorAll('section:not(.hero)').forEach(s => observer.observe(s));
+
+// 폴백: 2초 후 아직 안 보이는 섹션 강제 표시
+setTimeout(() => {
+  document.querySelectorAll('section:not(.visible)').forEach(s => s.classList.add('visible'));
+}, 2000);
 
 // ─── TOC Dots ───
 const sections = [
