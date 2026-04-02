@@ -1207,13 +1207,63 @@ footer {
     <div class="eyebrow">AI 업무 활용 가이드</div>
     <h1>AI를 잘 쓰는 건<br><em>좋은 질문</em>에서 시작됩니다</h1>
     <p class="subtitle">
-      리더스아카데미팀이 실제 업무에서 AI를 활용하며 쌓은 노하우를 공유합니다.
+      리더스아카데미팀이 실제 업무에서 AI를 활용하며 쌓은 노하우를 공유합니다.<br>
       프롬프트 기법이 아니라 '일하는 방식'의 전환에 대한 이야기입니다.
     </p>
     <div class="meta">
       <div class="meta-item"><strong>작성팀</strong>리더스아카데미팀</div>
       <div class="meta-item"><strong>대상</strong>하이브리드러닝운영팀</div>
       <div class="meta-item"><strong>2026. 04</strong>Ver 2.0</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════ TABLE OF CONTENTS ═══════ -->
+<section id="toc" style="padding:80px 0 60px;">
+<div class="container">
+  <div style="background:var(--surface);border-radius:var(--radius-lg);padding:48px;box-shadow:var(--shadow-md);border:1px solid rgba(0,0,0,0.04);max-width:720px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:32px;">
+      <div style="font-size:12px;font-weight:600;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">Table of Contents</div>
+      <h2 style="font-size:28px;font-weight:800;color:var(--navy);letter-spacing:-0.02em;">목차</h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0;">
+      <a href="#why" style="display:flex;align-items:center;gap:16px;padding:14px 20px;border-radius:10px;text-decoration:none;transition:all 0.2s;border-bottom:1px solid var(--border);" onmouseover="this.style.background='var(--accent-soft)'" onmouseout="this.style.background='transparent'">
+        <div style="width:36px;height:36px;border-radius:10px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--accent);flex-shrink:0;">01</div>
+        <div style="flex:1;"><div style="font-size:15px;font-weight:600;color:var(--navy);">왜 AI인가</div><div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">메타인지, WHY-WHAT-HOW 프레임</div></div>
+      </a>
+      <a href="#caution" style="display:flex;align-items:center;gap:16px;padding:14px 20px;border-radius:10px;text-decoration:none;transition:all 0.2s;border-bottom:1px solid var(--border);" onmouseover="this.style.background='var(--coral-soft)'" onmouseout="this.style.background='transparent'">
+        <div style="width:36px;height:36px;border-radius:10px;background:var(--coral-soft);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--coral);flex-shrink:0;">02</div>
+        <div style="flex:1;"><div style="font-size:15px;font-weight:600;color:var(--navy);">주의사항</div><div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">보안, 한계, AI를 안 쓰는 게 나은 경우</div></div>
+      </a>
+      <a href="#how" style="display:flex;align-items:center;gap:16px;padding:14px 20px;border-radius:10px;text-decoration:none;transition:all 0.2s;border-bottom:1px solid var(--border);" onmouseover="this.style.background='var(--amber-soft)'" onmouseout="this.style.background='transparent'">
+        <div style="width:36px;height:36px;border-radius:10px;background:var(--amber-soft);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--amber);flex-shrink:0;">03</div>
+        <div style="flex:1;"><div style="font-size:15px;font-weight:600;color:var(--navy);">잘 쓰는 법</div><div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">4원칙, 흔한 실수, 프롬프트 비교, 대화 패턴</div></div>
+      </a>
+      <a href="#cases" style="display:flex;align-items:center;gap:16px;padding:14px 20px;border-radius:10px;text-decoration:none;transition:all 0.2s;border-bottom:1px solid var(--border);" onmouseover="this.style.background='var(--emerald-soft)'" onmouseout="this.style.background='transparent'">
+        <div style="width:36px;height:36px;border-radius:10px;background:var(--emerald-soft);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--emerald);flex-shrink:0;">04</div>
+        <div style="flex:1;"><div style="font-size:15px;font-weight:600;color:var(--navy);">활용 사례</div><div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">제안서, 롤플레잉, 평가문항, 진단, 에세이 채점</div></div>
+      </a>
+      <a href="#org" style="display:flex;align-items:center;gap:16px;padding:14px 20px;border-radius:10px;text-decoration:none;transition:all 0.2s;border-bottom:1px solid var(--border);" onmouseover="this.style.background='var(--violet-soft)'" onmouseout="this.style.background='transparent'">
+        <div style="width:36px;height:36px;border-radius:10px;background:var(--violet-soft);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--violet);flex-shrink:0;">05</div>
+        <div style="flex:1;"><div style="font-size:15px;font-weight:600;color:var(--navy);">AI 조직도</div><div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">6봇 + 22 서브에이전트, 작업 플로우, 소규모 시작</div></div>
+      </a>
+      <a href="#ops" style="display:flex;align-items:center;gap:16px;padding:14px 20px;border-radius:10px;text-decoration:none;transition:all 0.2s;border-bottom:1px solid var(--border);" onmouseover="this.style.background='var(--accent-soft)'" onmouseout="this.style.background='transparent'">
+        <div style="width:36px;height:36px;border-radius:10px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--accent);flex-shrink:0;">06</div>
+        <div style="flex:1;"><div style="font-size:15px;font-weight:600;color:var(--navy);">운영팀 활용</div><div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">운영팀의 하루, 실전 프롬프트 예시</div></div>
+      </a>
+      <a href="#tools" style="display:flex;align-items:center;gap:16px;padding:14px 20px;border-radius:10px;text-decoration:none;transition:all 0.2s;border-bottom:1px solid var(--border);" onmouseover="this.style.background='var(--emerald-soft)'" onmouseout="this.style.background='transparent'">
+        <div style="width:36px;height:36px;border-radius:10px;background:var(--emerald-soft);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--emerald);flex-shrink:0;">07</div>
+        <div style="flex:1;"><div style="font-size:15px;font-weight:600;color:var(--navy);">도구 & 세팅</div><div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">채팅 vs Cowork vs Code, 환경설정, 커넥터</div></div>
+      </a>
+      <a href="#cowork" style="display:flex;align-items:center;gap:16px;padding:14px 20px;border-radius:10px;text-decoration:none;transition:all 0.2s;border-bottom:1px solid var(--border);" onmouseover="this.style.background='var(--violet-soft)'" onmouseout="this.style.background='transparent'">
+        <div style="width:36px;height:36px;border-radius:10px;background:var(--violet-soft);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--violet);flex-shrink:0;">08</div>
+        <div style="flex:1;"><div style="font-size:15px;font-weight:600;color:var(--navy);">CLAUDE.md & 스킬</div><div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">프로젝트 지침서, 슬래시 명령어 자동화</div></div>
+      </a>
+      <a href="#start" style="display:flex;align-items:center;gap:16px;padding:14px 20px;border-radius:10px;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.background='var(--accent-soft)'" onmouseout="this.style.background='transparent'">
+        <div style="width:36px;height:36px;border-radius:10px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--accent);flex-shrink:0;">09</div>
+        <div style="flex:1;"><div style="font-size:15px;font-weight:600;color:var(--navy);">시작하기</div><div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">10분 실습, 체크리스트, FAQ</div></div>
+      </a>
     </div>
   </div>
 </div>
@@ -1228,8 +1278,8 @@ footer {
   <div class="section-label">Why AI</div>
   <h2 class="section-title">AI 활용의 핵심은<br>'메타인지'입니다</h2>
   <p class="section-desc">
-    AI를 잘 쓰려면 프롬프트 기법보다 더 중요한 것이 있습니다.
-    <strong>내가 지금 어디에 있고, 어디로 가고 싶은지</strong>를 정확히 아는 것.
+    AI를 잘 쓰려면 프롬프트 기법보다 더 중요한 것이 있습니다.<br>
+    <strong>내가 지금 어디에 있고, 어디로 가고 싶은지</strong>를 정확히 아는 것.<br>
     네비게이션에 출발지와 목적지를 정확히 찍어야 경로가 나오는 것과 같습니다.
   </p>
 
@@ -1520,7 +1570,7 @@ MZ세대 신임 팀장들의 <span class="highlight">리더십 전환을 도울<
   <div class="section-label">How to Use</div>
   <h2 class="section-title">AI를 잘 쓰는 법</h2>
   <p class="section-desc">
-    프롬프트는 기술이 아니라 '커뮤니케이션'입니다.
+    프롬프트는 기술이 아니라 '커뮤니케이션'입니다.<br>
     새로 입사한 똑똑한 인턴에게 업무를 지시한다고 생각해보세요.
   </p>
 
@@ -1924,7 +1974,7 @@ MZ세대 신임 팀장들의 <span class="highlight">리더십 전환을 도울<
   <div class="section-label">Use Cases</div>
   <h2 class="section-title">우리 팀은 이렇게 쓰고 있습니다</h2>
   <p class="section-desc">
-    리더스아카데미팀이 실제 업무에서 AI를 적용한 5가지 사례입니다.
+    리더스아카데미팀이 실제 업무에서 AI를 적용한 5가지 사례입니다.<br>
     각 사례의 Before/After를 함께 살펴봅니다.
   </p>
   <!-- 사례 1: 제안서+PPT -->
@@ -1932,7 +1982,7 @@ MZ세대 신임 팀장들의 <span class="highlight">리더십 전환을 도울<
     <div class="detail-badge" style="background:var(--accent-soft);color:var(--accent);">📋 사례 1</div>
     <h3>제안서·PPT 자동 생성 (개발 중)</h3>
     <p class="detail-desc">
-      교육 제안서 커리큘럼(Word)과 연사 배치안 슬라이드(PPT) 모두 AI로 초안을 생성합니다.
+      교육 제안서 커리큘럼(Word)과 연사 배치안 슬라이드(PPT) 모두 AI로 초안을 생성합니다.<br>
       기존 자료나 데이터를 AI에게 참고로 주고, 정해진 포맷에 맞춰 문서를 뽑아냅니다.
     </p>
     <div class="ba-grid">
@@ -1967,8 +2017,8 @@ MZ세대 신임 팀장들의 <span class="highlight">리더십 전환을 도울<
     <div class="detail-badge" style="background:var(--violet-soft);color:var(--violet);">🎭 사례 2</div>
     <h3>AI 롤플레잉 시뮬레이션 개발</h3>
     <p class="detail-desc">
-      Claude Code에서 6개 AI 봇으로 구성된 개발 조직을 운영하고 있습니다.
-      교육 주제를 지정하면 9인 서브에이전트 팀이 시나리오·프롬프트·UI·평가 리포트를 자동 생성하고,
+      Claude Code에서 6개 AI 봇으로 구성된 개발 조직을 운영하고 있습니다.<br>
+      교육 주제를 지정하면 9인 서브에이전트 팀이 시나리오·프롬프트·UI·평가 리포트를 자동 생성하고,<br>
       독립 평가관이 단계별로 품질을 검증합니다. 디스코드 채널에서 실시간 협업하며 작업합니다.
     </p>
     <div class="ba-grid">
@@ -2020,7 +2070,7 @@ MZ세대 신임 팀장들의 <span class="highlight">리더십 전환을 도울<
     <div class="detail-badge" style="background:var(--amber-soft);color:var(--amber);">📝 사례 3</div>
     <h3>평가문항 자동 출제</h3>
     <p class="detail-desc">
-      이러닝 강의 원고(PDF/PPT)를 업로드하면 객관식·단답형 평가문항을 출제합니다.
+      이러닝 강의 원고(PDF/PPT)를 업로드하면 객관식·단답형 평가문항을 출제합니다.<br>
       차시별 3문항씩, 출제 기준(개념 이해형, 상황 해석형, 단답형)을 제어합니다.
     </p>
     <div class="ba-grid">
@@ -2062,7 +2112,7 @@ MZ세대 신임 팀장들의 <span class="highlight">리더십 전환을 도울<
     <div class="detail-badge" style="background:var(--emerald-soft);color:var(--emerald);">🗂️ 사례 4</div>
     <h3>AI 진단 센터 (자체 개발 중)</h3>
     <p class="detail-desc">
-      관리자가 직접 웹에서 진단 세트를 생성·관리합니다.
+      관리자가 직접 웹에서 진단 세트를 생성·관리합니다.<br>
       4가지 진단 유형(역량진단/리더십스타일/상황판단SJT/인지역량) 선택부터 문항 구성, AI 컨텍스트 설정, 리포트 옵션까지 위자드로 완성합니다.
     </p>
     <div class="ba-grid">
@@ -2108,8 +2158,8 @@ MZ세대 신임 팀장들의 <span class="highlight">리더십 전환을 도울<
     <div class="detail-badge" style="background:var(--coral-soft);color:var(--coral);">✍️ 사례 5</div>
     <h3>AI 에세이 채점 자동화</h3>
     <p class="detail-desc">
-      에세이 파일을 첨부하면 루브릭 기반 자동 채점.
-      항목별 점수 + 등급 판정 + 종합 코멘트 + 평가 총평을 자동 생성하고,
+      에세이 파일을 첨부하면 루브릭 기반 자동 채점.<br>
+      항목별 점수 + 등급 판정 + 종합 코멘트 + 평가 총평을 자동 생성하고,<br>
       개인별 Word 피드백 문서 + Excel 성적 요약표까지 일괄 출력합니다.
     </p>
     <div class="ba-grid">
@@ -2182,7 +2232,7 @@ MZ세대 신임 팀장들의 <span class="highlight">리더십 전환을 도울<
   <div class="section-label">AI Org</div>
   <h2 class="section-title">AI 에이전트 조직</h2>
   <p class="section-desc">
-    Claude Code 기반 6개 봇 + 22인 서브에이전트로 구성된 AI 개발 조직입니다.
+    Claude Code 기반 6개 봇 + 22인 서브에이전트로 구성된 AI 개발 조직입니다.<br>
     각 에이전트에 전문 영역·품질 기준·평가 체계를 설정하여 운영합니다.
   </p>
   <div class="detail-block" style="padding:48px 36px;">
@@ -2888,7 +2938,7 @@ shared/projects/onboarding-roleplay/
   <div class="section-label">For Ops Teams</div>
   <h2 class="section-title">교육 운영팀이 바로 써볼 수 있는 것들</h2>
   <p class="section-desc">
-    교육을 기획하고 운영하는 과정에서 반복되는 작업들이 있습니다.
+    교육을 기획하고 운영하는 과정에서 반복되는 작업들이 있습니다.<br>
     AI가 대신할 수 없는 판단은 사람이 하되, 초안 작성이나 정리 작업은 AI에게 맡길 수 있습니다.
   </p>
 
@@ -3081,7 +3131,7 @@ shared/projects/onboarding-roleplay/
   <div class="section-label">Tools & Settings</div>
   <h2 class="section-title">도구와 세팅 가이드</h2>
   <p class="section-desc">
-    AI를 더 잘 쓰려면 도구 선택과 초기 세팅이 중요합니다.
+    AI를 더 잘 쓰려면 도구 선택과 초기 세팅이 중요합니다.<br>
     자기 업무에 맞는 도구 하나를 제대로 세팅하는 것이 핵심입니다.
   </p>
 
@@ -3296,7 +3346,7 @@ shared/projects/onboarding-roleplay/
   <div class="section-label">Cowork Deep Dive</div>
   <h2 class="section-title">Cowork 심화 — CLAUDE.md와 스킬</h2>
   <p class="section-desc">
-    Cowork(또는 Code)에서 CLAUDE.md 파일과 스킬을 활용하면,
+    Cowork(또는 Code)에서 CLAUDE.md 파일과 스킬을 활용하면,<br>
     매번 같은 지시를 반복하지 않고도 <strong>나만의 AI 업무 파트너</strong>를 만들 수 있습니다.
   </p>
 
@@ -3305,7 +3355,7 @@ shared/projects/onboarding-roleplay/
     <div class="detail-badge" style="background:var(--accent-soft);color:var(--accent);">📄 CLAUDE.md</div>
     <h3>CLAUDE.md란?</h3>
     <p class="detail-desc">
-      프로젝트 폴더에 CLAUDE.md 파일을 넣어두면, AI가 대화를 시작할 때마다 이 파일을 먼저 읽습니다.
+      프로젝트 폴더에 CLAUDE.md 파일을 넣어두면, AI가 대화를 시작할 때마다 이 파일을 먼저 읽습니다.<br>
       "이 프로젝트는 이런 거고, 이런 규칙을 지켜야 해"를 미리 알려주는 <strong>영구 지침서</strong>입니다.
     </p>
 
@@ -3427,7 +3477,7 @@ shared/projects/onboarding-roleplay/
     <div class="detail-badge" style="background:var(--violet-soft);color:var(--violet);">⚡ 스킬</div>
     <h3>스킬(Skills)이란?</h3>
     <p class="detail-desc">
-      스킬은 Claude에게 <strong>특정 업무의 전문가 모드</strong>를 부여하는 기능입니다.
+      스킬은 Claude에게 <strong>특정 업무의 전문가 모드</strong>를 부여하는 기능입니다.<br>
       슬래시 명령어(/)로 호출하면, 해당 업무에 최적화된 프로세스와 출력 형식으로 동작합니다.
     </p>
 
@@ -3564,7 +3614,7 @@ shared/projects/onboarding-roleplay/
   <div class="section-label">Get Started</div>
   <h2 class="section-title">지금 바로 시작하기</h2>
   <p class="section-desc">
-    거창하게 시작할 필요 없습니다.
+    거창하게 시작할 필요 없습니다.<br>
     내일 업무 중 하나만 AI와 함께 해보세요.
   </p>
 
