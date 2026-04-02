@@ -988,9 +988,9 @@ footer {
   .cc-vs { grid-template-columns: 1fr; gap: 12px; }
   .hero .meta { gap: 24px; }
 
-  /* 5칼럼 인라인 그리드 태블릿 대응 */
+  /* 5칼럼 인라인 그리드 태블릿 대응 → auto-fit으로 자연스러운 2행 */
   [style*="grid-template-columns:repeat(5"] {
-    grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
   }
 }
 
@@ -1046,6 +1046,120 @@ footer {
     white-space: normal !important;
   }
 }
+
+/* ─── MOBILE HAMBURGER MENU ─── */
+.nav-hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  color: var(--ink);
+  font-size: 22px;
+  line-height: 1;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+}
+.nav-drawer {
+  display: none;
+  position: fixed;
+  top: 60px; left: 0; right: 0;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  z-index: 99;
+  padding: 16px 24px;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+.nav-drawer.open { display: flex; }
+.nav-drawer a {
+  text-decoration: none;
+  color: var(--ink-light);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 12px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+.nav-drawer a:hover { color: var(--accent); background: var(--accent-soft); }
+@media (max-width: 768px) {
+  .nav-hamburger { display: flex; }
+}
+
+/* ─── BACK TO TOP ─── */
+.back-to-top {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s;
+  pointer-events: none;
+  z-index: 90;
+}
+.back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.back-to-top:hover { background: var(--accent); transform: translateY(-2px); }
+
+/* ─── PRINT STYLES ─── */
+@media print {
+  nav, .toc-float, .back-to-top, .nav-drawer, .nav-hamburger { display: none !important; }
+  section { opacity: 1 !important; transform: none !important; padding: 24px 0; }
+  body { font-size: 12px; background: #fff; color: #000; }
+  .container { max-width: 100%; padding: 0 20px; }
+  .formula-box, .cta-section, .prompt-example, .terminal { break-inside: avoid; }
+  .formula-box, .cta-section { color: #000; background: #f0f0f0; }
+  .prompt-example, .terminal { background: #f5f5f5; color: #000; }
+  .card, .detail-block, .principle-card, .usecase-card, .cc-feature, .tool-card {
+    box-shadow: none; border: 1px solid #ddd; break-inside: avoid;
+  }
+}
+
+/* ─── DARK MODE ─── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1118;
+    --surface: #1a1d2e;
+    --surface-alt: #232640;
+    --ink: #e8e6e3;
+    --ink-light: #a8a5a0;
+    --ink-muted: #6b6862;
+    --border: rgba(255,255,255,0.1);
+    --accent: #38bdf8;
+    --accent-soft: rgba(56,189,248,0.12);
+    --accent-dark: #0284c7;
+    --accent-mid: #22d3ee;
+    --navy: #e2e8f0;
+    --coral-soft: rgba(239,68,68,0.15);
+    --emerald-soft: rgba(4,120,87,0.15);
+    --amber-soft: rgba(180,83,9,0.15);
+    --violet-soft: rgba(109,40,217,0.15);
+  }
+  nav { background: rgba(15,17,24,0.9); border-bottom-color: rgba(255,255,255,0.06); }
+  .nav-drawer { background: var(--bg); }
+  .highlight-box { background: rgba(56,189,248,0.08); border-left-color: var(--accent); color: var(--accent); }
+  .highlight-box strong { color: var(--ink); }
+  .prompt-example, .terminal, .formula-box { background: #111827; }
+  .terminal-bar { background: #0a0f1a; }
+  .cta-section { background: linear-gradient(135deg, #111827, #1e293b); }
+  .ba-col.before { background: rgba(239,68,68,0.1); }
+  .ba-col.after { background: rgba(4,120,87,0.1); }
+  img { opacity: 0.9; }
+}
 </style>
 </head>
 <body>
@@ -1066,10 +1180,25 @@ footer {
       <li><a href="#cowork">CLAUDE.md & 스킬</a></li>
       <li><a href="#start">시작하기</a></li>
     </ul>
+    <button class="nav-hamburger" id="navHamburger" aria-label="메뉴 열기">&#9776;</button>
   </div>
 </nav>
+<!-- Mobile Drawer -->
+<div class="nav-drawer" id="navDrawer">
+  <a href="#why">01 왜 AI인가</a>
+  <a href="#caution">02 주의사항</a>
+  <a href="#how">03 잘 쓰는 법</a>
+  <a href="#cases">04 활용 사례</a>
+  <a href="#org">05 AI 조직도</a>
+  <a href="#ops">06 운영팀 활용</a>
+  <a href="#tools">07 도구 & 세팅</a>
+  <a href="#cowork">08 CLAUDE.md & 스킬</a>
+  <a href="#start">09 시작하기</a>
+</div>
 <!-- TOC DOTS -->
 <div class="toc-float" id="tocDots"></div>
+<!-- Back to Top -->
+<button class="back-to-top" id="backToTop" aria-label="맨 위로">&#8593;</button>
 
 <!-- ═══════ HERO ═══════ -->
 <section class="hero visible" id="hero">
@@ -3713,6 +3842,43 @@ function updateToc() {
 }
 window.addEventListener('scroll', updateToc, { passive: true });
 updateToc();
+
+// ─── Mobile Hamburger Menu ───
+const hamburger = document.getElementById('navHamburger');
+const drawer = document.getElementById('navDrawer');
+if (hamburger && drawer) {
+  hamburger.addEventListener('click', () => {
+    const open = drawer.classList.toggle('open');
+    hamburger.innerHTML = open ? '&#10005;' : '&#9776;';
+    hamburger.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+  });
+  drawer.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      drawer.classList.remove('open');
+      hamburger.innerHTML = '&#9776;';
+    });
+  });
+}
+
+// ─── Back to Top ───
+const backToTop = document.getElementById('backToTop');
+if (backToTop) {
+  window.addEventListener('scroll', () => {
+    backToTop.classList.toggle('visible', window.scrollY > 600);
+  }, { passive: true });
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
+// ─── Checklist localStorage ───
+document.querySelectorAll('#start input[type="checkbox"]').forEach((cb, i) => {
+  const key = 'guide-check-' + i;
+  cb.checked = localStorage.getItem(key) === 'true';
+  cb.addEventListener('change', () => {
+    localStorage.setItem(key, cb.checked);
+  });
+});
 </script>
 
 </body>
