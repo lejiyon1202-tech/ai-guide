@@ -181,9 +181,10 @@ section.visible {
 .hero .subtitle {
   font-size: 19px;
   color: var(--ink-light);
-  max-width: 580px;
+  max-width: 680px;
   line-height: 1.7;
   font-weight: 300;
+  word-break: keep-all;
 }
 .hero .meta {
   margin-top: 40px;
@@ -1221,51 +1222,67 @@ footer {
 </section>
 
 <!-- ═══════ TABLE OF CONTENTS ═══════ -->
-<section id="toc" style="padding:80px 0 60px;">
+<section id="toc" style="padding:80px 0 40px;">
 <div class="container">
-  <div style="background:var(--surface);border-radius:var(--radius-lg);padding:48px;box-shadow:var(--shadow-md);border:1px solid rgba(0,0,0,0.04);">
-    <div style="text-align:center;margin-bottom:32px;">
-      <div style="font-size:12px;font-weight:600;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">Table of Contents</div>
-      <h2 style="font-size:28px;font-weight:800;color:var(--navy);letter-spacing:-0.02em;">목차</h2>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:0;">
-      <a href="#why" style="display:flex;align-items:center;gap:16px;padding:14px 20px;border-radius:10px;text-decoration:none;transition:all 0.2s;border-bottom:1px solid var(--border);" onmouseover="this.style.background='var(--accent-soft)'" onmouseout="this.style.background='transparent'">
-        <div style="width:36px;height:36px;border-radius:10px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--accent);flex-shrink:0;">01</div>
-        <div style="flex:1;"><div style="font-size:15px;font-weight:600;color:var(--navy);">왜 AI인가</div><div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">메타인지, WHY-WHAT-HOW 프레임</div></div>
-      </a>
-      <a href="#caution" style="display:flex;align-items:center;gap:16px;padding:14px 20px;border-radius:10px;text-decoration:none;transition:all 0.2s;border-bottom:1px solid var(--border);" onmouseover="this.style.background='var(--coral-soft)'" onmouseout="this.style.background='transparent'">
-        <div style="width:36px;height:36px;border-radius:10px;background:var(--coral-soft);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--coral);flex-shrink:0;">02</div>
-        <div style="flex:1;"><div style="font-size:15px;font-weight:600;color:var(--navy);">주의사항</div><div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">보안, 한계, AI를 안 쓰는 게 나은 경우</div></div>
-      </a>
-      <a href="#how" style="display:flex;align-items:center;gap:16px;padding:14px 20px;border-radius:10px;text-decoration:none;transition:all 0.2s;border-bottom:1px solid var(--border);" onmouseover="this.style.background='var(--amber-soft)'" onmouseout="this.style.background='transparent'">
-        <div style="width:36px;height:36px;border-radius:10px;background:var(--amber-soft);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--amber);flex-shrink:0;">03</div>
-        <div style="flex:1;"><div style="font-size:15px;font-weight:600;color:var(--navy);">잘 쓰는 법</div><div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">4원칙, 흔한 실수, 프롬프트 비교, 대화 패턴</div></div>
-      </a>
-      <a href="#cases" style="display:flex;align-items:center;gap:16px;padding:14px 20px;border-radius:10px;text-decoration:none;transition:all 0.2s;border-bottom:1px solid var(--border);" onmouseover="this.style.background='var(--emerald-soft)'" onmouseout="this.style.background='transparent'">
-        <div style="width:36px;height:36px;border-radius:10px;background:var(--emerald-soft);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--emerald);flex-shrink:0;">04</div>
-        <div style="flex:1;"><div style="font-size:15px;font-weight:600;color:var(--navy);">활용 사례</div><div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">제안서, 롤플레잉, 평가문항, 진단, 에세이 채점</div></div>
-      </a>
-      <a href="#org" style="display:flex;align-items:center;gap:16px;padding:14px 20px;border-radius:10px;text-decoration:none;transition:all 0.2s;border-bottom:1px solid var(--border);" onmouseover="this.style.background='var(--violet-soft)'" onmouseout="this.style.background='transparent'">
-        <div style="width:36px;height:36px;border-radius:10px;background:var(--violet-soft);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--violet);flex-shrink:0;">05</div>
-        <div style="flex:1;"><div style="font-size:15px;font-weight:600;color:var(--navy);">AI 조직도</div><div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">6봇 + 22 서브에이전트, 작업 플로우, 소규모 시작</div></div>
-      </a>
-      <a href="#ops" style="display:flex;align-items:center;gap:16px;padding:14px 20px;border-radius:10px;text-decoration:none;transition:all 0.2s;border-bottom:1px solid var(--border);" onmouseover="this.style.background='var(--accent-soft)'" onmouseout="this.style.background='transparent'">
-        <div style="width:36px;height:36px;border-radius:10px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--accent);flex-shrink:0;">06</div>
-        <div style="flex:1;"><div style="font-size:15px;font-weight:600;color:var(--navy);">운영팀 활용</div><div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">운영팀의 하루, 실전 프롬프트 예시</div></div>
-      </a>
-      <a href="#tools" style="display:flex;align-items:center;gap:16px;padding:14px 20px;border-radius:10px;text-decoration:none;transition:all 0.2s;border-bottom:1px solid var(--border);" onmouseover="this.style.background='var(--emerald-soft)'" onmouseout="this.style.background='transparent'">
-        <div style="width:36px;height:36px;border-radius:10px;background:var(--emerald-soft);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--emerald);flex-shrink:0;">07</div>
-        <div style="flex:1;"><div style="font-size:15px;font-weight:600;color:var(--navy);">도구 & 세팅</div><div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">채팅 vs Cowork vs Code, 환경설정, 커넥터</div></div>
-      </a>
-      <a href="#cowork" style="display:flex;align-items:center;gap:16px;padding:14px 20px;border-radius:10px;text-decoration:none;transition:all 0.2s;border-bottom:1px solid var(--border);" onmouseover="this.style.background='var(--violet-soft)'" onmouseout="this.style.background='transparent'">
-        <div style="width:36px;height:36px;border-radius:10px;background:var(--violet-soft);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--violet);flex-shrink:0;">08</div>
-        <div style="flex:1;"><div style="font-size:15px;font-weight:600;color:var(--navy);">CLAUDE.md & 스킬</div><div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">프로젝트 지침서, 슬래시 명령어 자동화</div></div>
-      </a>
-      <a href="#start" style="display:flex;align-items:center;gap:16px;padding:14px 20px;border-radius:10px;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.background='var(--accent-soft)'" onmouseout="this.style.background='transparent'">
-        <div style="width:36px;height:36px;border-radius:10px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--accent);flex-shrink:0;">09</div>
-        <div style="flex:1;"><div style="font-size:15px;font-weight:600;color:var(--navy);">시작하기</div><div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">10분 실습, 체크리스트, FAQ</div></div>
-      </a>
-    </div>
+  <div style="text-align:center;margin-bottom:40px;">
+    <div style="font-size:12px;font-weight:600;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">Table of Contents</div>
+    <h2 style="font-size:28px;font-weight:800;color:var(--navy);letter-spacing:-0.02em;">이 가이드에서 다루는 것</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;" class="grid-3">
+    <a href="#why" style="text-decoration:none;background:var(--surface);border-radius:14px;padding:28px 24px;box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.04);transition:all 0.3s;display:block;position:relative;overflow:hidden;">
+      <div style="font-family:var(--font-display);font-size:48px;font-weight:900;color:rgba(0,0,0,0.04);position:absolute;top:12px;right:16px;line-height:1;">01</div>
+      <div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:8px;">WHY AI</div>
+      <div style="font-size:17px;font-weight:700;color:var(--navy);margin-bottom:6px;">왜 AI인가</div>
+      <div style="font-size:13px;color:var(--ink-light);line-height:1.55;">메타인지와 WHY-WHAT-HOW 프레임</div>
+    </a>
+    <a href="#caution" style="text-decoration:none;background:var(--surface);border-radius:14px;padding:28px 24px;box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.04);transition:all 0.3s;display:block;position:relative;overflow:hidden;">
+      <div style="font-family:var(--font-display);font-size:48px;font-weight:900;color:rgba(0,0,0,0.04);position:absolute;top:12px;right:16px;line-height:1;">02</div>
+      <div style="font-size:13px;font-weight:600;color:var(--coral);margin-bottom:8px;">CAUTION</div>
+      <div style="font-size:17px;font-weight:700;color:var(--navy);margin-bottom:6px;">주의사항</div>
+      <div style="font-size:13px;color:var(--ink-light);line-height:1.55;">보안, 한계, 안 쓰는 게 나은 경우</div>
+    </a>
+    <a href="#how" style="text-decoration:none;background:var(--surface);border-radius:14px;padding:28px 24px;box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.04);transition:all 0.3s;display:block;position:relative;overflow:hidden;">
+      <div style="font-family:var(--font-display);font-size:48px;font-weight:900;color:rgba(0,0,0,0.04);position:absolute;top:12px;right:16px;line-height:1;">03</div>
+      <div style="font-size:13px;font-weight:600;color:var(--amber);margin-bottom:8px;">HOW TO</div>
+      <div style="font-size:17px;font-weight:700;color:var(--navy);margin-bottom:6px;">잘 쓰는 법</div>
+      <div style="font-size:13px;color:var(--ink-light);line-height:1.55;">4원칙, 흔한 실수, 대화 패턴</div>
+    </a>
+    <a href="#cases" style="text-decoration:none;background:var(--surface);border-radius:14px;padding:28px 24px;box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.04);transition:all 0.3s;display:block;position:relative;overflow:hidden;">
+      <div style="font-family:var(--font-display);font-size:48px;font-weight:900;color:rgba(0,0,0,0.04);position:absolute;top:12px;right:16px;line-height:1;">04</div>
+      <div style="font-size:13px;font-weight:600;color:var(--emerald);margin-bottom:8px;">USE CASES</div>
+      <div style="font-size:17px;font-weight:700;color:var(--navy);margin-bottom:6px;">활용 사례</div>
+      <div style="font-size:13px;color:var(--ink-light);line-height:1.55;">제안서, 롤플레잉, 평가문항, 진단, 채점</div>
+    </a>
+    <a href="#org" style="text-decoration:none;background:var(--surface);border-radius:14px;padding:28px 24px;box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.04);transition:all 0.3s;display:block;position:relative;overflow:hidden;">
+      <div style="font-family:var(--font-display);font-size:48px;font-weight:900;color:rgba(0,0,0,0.04);position:absolute;top:12px;right:16px;line-height:1;">05</div>
+      <div style="font-size:13px;font-weight:600;color:var(--violet);margin-bottom:8px;">AI ORG</div>
+      <div style="font-size:17px;font-weight:700;color:var(--navy);margin-bottom:6px;">AI 조직도</div>
+      <div style="font-size:13px;color:var(--ink-light);line-height:1.55;">6봇 + 22 에이전트, 소규모 시작</div>
+    </a>
+    <a href="#ops" style="text-decoration:none;background:var(--surface);border-radius:14px;padding:28px 24px;box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.04);transition:all 0.3s;display:block;position:relative;overflow:hidden;">
+      <div style="font-family:var(--font-display);font-size:48px;font-weight:900;color:rgba(0,0,0,0.04);position:absolute;top:12px;right:16px;line-height:1;">06</div>
+      <div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:8px;">FOR OPS TEAM</div>
+      <div style="font-size:17px;font-weight:700;color:var(--navy);margin-bottom:6px;">운영팀 활용</div>
+      <div style="font-size:13px;color:var(--ink-light);line-height:1.55;">하루 타임라인, 프롬프트 예시</div>
+    </a>
+    <a href="#tools" style="text-decoration:none;background:var(--surface);border-radius:14px;padding:28px 24px;box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.04);transition:all 0.3s;display:block;position:relative;overflow:hidden;">
+      <div style="font-family:var(--font-display);font-size:48px;font-weight:900;color:rgba(0,0,0,0.04);position:absolute;top:12px;right:16px;line-height:1;">07</div>
+      <div style="font-size:13px;font-weight:600;color:var(--emerald);margin-bottom:8px;">TOOLS</div>
+      <div style="font-size:17px;font-weight:700;color:var(--navy);margin-bottom:6px;">도구 & 세팅</div>
+      <div style="font-size:13px;color:var(--ink-light);line-height:1.55;">채팅 vs Cowork vs Code</div>
+    </a>
+    <a href="#cowork" style="text-decoration:none;background:var(--surface);border-radius:14px;padding:28px 24px;box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.04);transition:all 0.3s;display:block;position:relative;overflow:hidden;">
+      <div style="font-family:var(--font-display);font-size:48px;font-weight:900;color:rgba(0,0,0,0.04);position:absolute;top:12px;right:16px;line-height:1;">08</div>
+      <div style="font-size:13px;font-weight:600;color:var(--violet);margin-bottom:8px;">ADVANCED</div>
+      <div style="font-size:17px;font-weight:700;color:var(--navy);margin-bottom:6px;">CLAUDE.md & 스킬</div>
+      <div style="font-size:13px;color:var(--ink-light);line-height:1.55;">프로젝트 지침서, 슬래시 자동화</div>
+    </a>
+    <a href="#start" style="text-decoration:none;background:var(--navy);border-radius:14px;padding:28px 24px;box-shadow:var(--shadow-md);transition:all 0.3s;display:block;position:relative;overflow:hidden;">
+      <div style="font-family:var(--font-display);font-size:48px;font-weight:900;color:rgba(255,255,255,0.08);position:absolute;top:12px;right:16px;line-height:1;">09</div>
+      <div style="font-size:13px;font-weight:600;color:var(--accent-mid);margin-bottom:8px;">GET STARTED</div>
+      <div style="font-size:17px;font-weight:700;color:#fff;margin-bottom:6px;">시작하기</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.55;">10분 실습, 체크리스트, FAQ</div>
+    </a>
   </div>
 </div>
 </section>
