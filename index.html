@@ -980,6 +980,11 @@ footer {
   .usecase-grid { grid-template-columns: 1fr; }
   .cc-vs { grid-template-columns: 1fr; gap: 12px; }
   .hero .meta { gap: 24px; }
+
+  /* 5칼럼 인라인 그리드 태블릿 대응 */
+  [style*="grid-template-columns:repeat(5"] {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1000,11 +1005,14 @@ footer {
   .section-num { font-size: 52px; }
   .principle-grid { grid-template-columns: 1fr; }
   .tool-grid { grid-template-columns: 1fr; }
+  .cta-step { width: 100%; }
+  .cta-steps { flex-direction: column; }
 
-  /* 인라인 2칼럼 그리드 모바일 대응 */
+  /* 인라인 그리드 모바일 대응 */
   [style*="grid-template-columns:1fr 1fr"],
   [style*="grid-template-columns: 1fr 1fr"],
-  [style*="grid-template-columns:repeat(2"] {
+  [style*="grid-template-columns:repeat(2"],
+  [style*="grid-template-columns:repeat(5"] {
     grid-template-columns: 1fr !important;
   }
 }
@@ -1024,6 +1032,12 @@ footer {
   .cta-steps { gap: 16px; }
   .cta-step { width: 100%; }
   .highlight-box { padding: 16px 18px; font-size: 14px; }
+
+  /* 인라인 min-width 오버라이드 */
+  [style*="min-width:140px"] {
+    min-width: auto !important;
+    white-space: normal !important;
+  }
 }
 </style>
 </head>
