@@ -1,0 +1,3328 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 업무 활용 가이드 — 리더스아카데미팀</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F8F6F1;
+  --surface: #FFFFFF;
+  --surface-alt: #F0EDE6;
+  --ink: #1C1917;
+  --ink-light: #57534E;
+  --ink-muted: #A8A29E;
+  --border: rgba(0,0,0,0.08);
+  --accent: #0C4A6E;
+  --accent-soft: #E0F2FE;
+  --accent-dark: #082F49;
+  --accent-mid: #0369A1;
+  --coral: #DC2626;
+  --coral-soft: #FEE2E2;
+  --emerald: #047857;
+  --emerald-soft: #D1FAE5;
+  --amber: #B45309;
+  --amber-soft: #FEF3C7;
+  --violet: #6D28D9;
+  --violet-soft: #EDE9FE;
+  --navy: #0C1220;
+  --font-body: 'Noto Sans KR', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-display: 'Playfair Display', serif;
+  --radius: 14px;
+  --radius-sm: 8px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 1px 2px rgba(28,25,23,0.04), 0 1px 3px rgba(28,25,23,0.06);
+  --shadow-md: 0 4px 16px rgba(28,25,23,0.06), 0 1px 4px rgba(28,25,23,0.04);
+  --shadow-lg: 0 12px 40px rgba(28,25,23,0.08), 0 2px 8px rgba(28,25,23,0.03);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.75;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(248,246,241,0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  transition: all 0.3s;
+}
+nav .nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
+nav .logo {
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+nav .logo span { color: var(--accent); }
+nav .nav-links {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+}
+nav .nav-links a {
+  text-decoration: none;
+  color: var(--ink-light);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+nav .nav-links a:hover {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* ─── LAYOUT ─── */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+section {
+  padding: 100px 0;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: 60px;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, rgba(12,74,110,0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -300px; left: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(4,120,87,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+.hero .eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hero .eyebrow::before {
+  content: '';
+  width: 24px; height: 2px;
+  background: var(--accent);
+}
+.hero h1 {
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+  color: var(--navy);
+}
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-mid) 50%, var(--emerald) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero .subtitle {
+  font-size: 19px;
+  color: var(--ink-light);
+  max-width: 580px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+.hero .meta {
+  margin-top: 40px;
+  display: flex;
+  gap: 32px;
+}
+.hero .meta-item {
+  font-size: 13px;
+  color: var(--ink-muted);
+}
+.hero .meta-item strong {
+  display: block;
+  font-size: 15px;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ─── SECTION HEADERS ─── */
+.section-num {
+  font-family: var(--font-display);
+  font-size: 72px;
+  font-weight: 900;
+  color: rgba(0,0,0,0.04);
+  line-height: 1;
+  margin-bottom: -20px;
+  position: relative;
+  z-index: 0;
+}
+.section-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.section-title {
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin-bottom: 16px;
+  color: var(--navy);
+}
+.section-desc {
+  font-size: 17px;
+  color: var(--ink-light);
+  max-width: 640px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* ─── CARDS ─── */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 36px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(0,0,0,0.04);
+  transition: all 0.3s;
+}
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* ─── FORMULA SECTION ─── */
+.formula-box {
+  background: var(--navy);
+  border-radius: 20px;
+  padding: 60px;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  margin-top: 48px;
+}
+.formula-box::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(12,74,110,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 50%, rgba(4,120,87,0.12) 0%, transparent 50%);
+  pointer-events: none;
+}
+.formula-box .formula {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.formula-item {
+  text-align: center;
+}
+.formula-item .icon-circle {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin: 0 auto 12px;
+}
+.formula-item .label {
+  font-size: 15px;
+  font-weight: 600;
+}
+.formula-item .sub {
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  margin-top: 4px;
+}
+.formula-op {
+  font-size: 36px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.3);
+}
+
+/* ─── USE CASE GRID ─── */
+.usecase-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+  margin-top: 48px;
+}
+.usecase-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 0;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(0,0,0,0.04);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.usecase-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+.usecase-card .card-header {
+  padding: 28px 28px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+.usecase-card .card-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.usecase-card .card-tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 3px 10px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.usecase-card .card-title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--navy);
+}
+.usecase-card .card-body {
+  padding: 16px 28px 28px;
+}
+.usecase-card .card-desc {
+  font-size: 14px;
+  color: var(--ink-light);
+  line-height: 1.65;
+}
+.usecase-card .card-metrics {
+  display: flex;
+  gap: 20px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+.usecase-card .metric {
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+.usecase-card .metric strong {
+  display: block;
+  font-size: 20px;
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* ─── DETAIL SECTION ─── */
+.detail-section {
+  margin-top: 48px;
+}
+.detail-block {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 48px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.detail-block .detail-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+.detail-block h3 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+  color: var(--navy);
+}
+.detail-block .detail-desc {
+  font-size: 15px;
+  color: var(--ink-light);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+/* before-after */
+.ba-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0;
+  align-items: stretch;
+  margin: 24px 0;
+}
+.ba-col {
+  padding: 24px;
+  border-radius: 12px;
+}
+.ba-col.before {
+  background: var(--coral-soft);
+}
+.ba-col.after {
+  background: var(--emerald-soft);
+}
+.ba-col h4 {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ba-col.before h4 { color: var(--coral); }
+.ba-col.after h4 { color: var(--emerald); }
+.ba-col ul {
+  list-style: none;
+  font-size: 14px;
+  color: var(--ink-light);
+}
+.ba-col li {
+  padding: 6px 0;
+  padding-left: 16px;
+  position: relative;
+}
+.ba-col li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 12px;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+}
+.ba-col.before li::before { background: var(--coral); }
+.ba-col.after li::before { background: var(--emerald); }
+.ba-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: var(--ink-muted);
+  padding: 0 12px;
+}
+
+/* ─── PROMPT SECTION ─── */
+.prompt-example {
+  background: var(--navy);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin: 16px 0;
+  position: relative;
+  overflow: hidden;
+}
+.prompt-example::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--accent);
+}
+.prompt-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.prompt-text {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+.prompt-text .highlight {
+  color: #93C5FD;
+  font-weight: 500;
+}
+.prompt-text .comment {
+  color: rgba(255,255,255,0.3);
+}
+
+/* ─── PRINCIPLE CARDS ─── */
+.principle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+}
+.principle-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(0,0,0,0.04);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+.principle-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.principle-card .p-num {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 900;
+  color: rgba(0,0,0,0.04);
+  position: absolute;
+  top: 16px; right: 20px;
+}
+.principle-card .p-icon {
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+.principle-card h4 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--navy);
+}
+.principle-card p {
+  font-size: 14px;
+  color: var(--ink-light);
+  line-height: 1.65;
+}
+
+/* ─── WORKFLOW ─── */
+.workflow-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 40px;
+  position: relative;
+}
+.workflow-steps::before {
+  content: '';
+  position: absolute;
+  left: 28px; top: 40px; bottom: 40px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--accent), var(--accent-mid), var(--emerald));
+}
+.wf-step {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  padding: 20px 0;
+  position: relative;
+}
+.wf-dot {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  box-shadow: var(--shadow-sm);
+}
+.wf-content {
+  flex: 1;
+  padding-top: 8px;
+}
+.wf-content h4 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--navy);
+}
+.wf-content p {
+  font-size: 14px;
+  color: var(--ink-light);
+  line-height: 1.6;
+}
+
+/* ─── MISTAKES ─── */
+.mistake-list {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.mistake-item {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(0,0,0,0.04);
+  display: grid;
+  grid-template-columns: auto 1fr auto 1fr;
+  gap: 16px;
+  align-items: start;
+}
+.mistake-item .tag {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  margin-top: 2px;
+}
+.mistake-item .tag.bad { background: var(--coral-soft); color: var(--coral); }
+.mistake-item .tag.good { background: var(--emerald-soft); color: var(--emerald); }
+.mistake-item .text {
+  font-size: 14px;
+  color: var(--ink-light);
+  line-height: 1.6;
+}
+
+/* ─── TOOL CARDS ─── */
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+}
+.tool-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(0,0,0,0.04);
+  text-align: center;
+  transition: all 0.3s;
+}
+.tool-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.tool-card .tool-icon {
+  width: 64px; height: 64px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin: 0 auto 16px;
+}
+.tool-card h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--navy);
+}
+.tool-card .tool-desc {
+  font-size: 13px;
+  color: var(--ink-light);
+  line-height: 1.55;
+  margin-bottom: 12px;
+}
+.tool-card .tool-use {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  padding: 4px 12px;
+  background: var(--accent-soft);
+  border-radius: 6px;
+  display: inline-block;
+}
+
+/* ─── CTA ─── */
+.cta-section {
+  background: linear-gradient(135deg, var(--navy) 0%, #1E293B 100%);
+  border-radius: 24px;
+  padding: 80px 60px;
+  text-align: center;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  margin-top: 48px;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 0%, rgba(12,74,110,0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 100%, rgba(4,120,87,0.15) 0%, transparent 50%);
+}
+.cta-section h2 {
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  position: relative;
+}
+.cta-section p {
+  font-size: 17px;
+  color: rgba(255,255,255,0.7);
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+  line-height: 1.7;
+}
+.cta-steps {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  margin-top: 48px;
+  position: relative;
+  flex-wrap: wrap;
+}
+.cta-step {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 28px;
+  width: 200px;
+  backdrop-filter: blur(10px);
+}
+.cta-step .step-num {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.cta-step h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.cta-step p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+}
+
+/* ─── FOOTER ─── */
+footer {
+  text-align: center;
+  padding: 60px 0;
+  font-size: 13px;
+  color: var(--ink-muted);
+}
+
+/* ─── TOC floating ─── */
+.toc-float {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.toc-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+}
+.toc-dot.active {
+  background: var(--accent);
+  transform: scale(1.3);
+}
+.toc-dot::after {
+  content: attr(data-label);
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-light);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  background: var(--surface);
+  padding: 4px 10px;
+  border-radius: 6px;
+  box-shadow: var(--shadow-sm);
+}
+.toc-dot:hover::after {
+  opacity: 1;
+}
+
+/* ─── responsive grids (inline override) ─── */
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+@media (max-width: 768px) {
+  .grid-3 { grid-template-columns: 1fr; }
+  .grid-2 { grid-template-columns: 1fr; }
+}
+
+/* ─── screenshot frames ─── */
+.screenshot-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 20px;
+}
+.screenshot-frame {
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s;
+}
+.screenshot-frame:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.screenshot-frame .screenshot-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-muted);
+  padding: 8px 14px;
+  background: var(--surface-alt);
+  border-bottom: 1px solid var(--border);
+}
+.screenshot-frame img {
+  width: 100%;
+  display: block;
+}
+.screenshot-single {
+  max-width: 600px;
+}
+@media (max-width: 768px) {
+  .screenshot-grid { grid-template-columns: 1fr; }
+  .screenshot-single { max-width: 100%; }
+}
+
+/* ─── highlight box ─── */
+.highlight-box {
+  background: var(--accent-soft);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  padding: 20px 24px;
+  margin: 20px 0;
+  font-size: 15px;
+  color: var(--accent-dark);
+  line-height: 1.65;
+}
+.highlight-box strong { color: var(--navy); }
+
+/* ─── TERMINAL ─── */
+.terminal {
+  background: #1E1E2E;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  margin: 24px 0;
+}
+.terminal-bar {
+  background: #181825;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.terminal-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+}
+.terminal-dot.r { background: #F38BA8; }
+.terminal-dot.y { background: #F9E2AF; }
+.terminal-dot.g { background: #A6E3A1; }
+.terminal-bar span {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #6C7086;
+  margin-left: 8px;
+}
+.terminal-body {
+  padding: 20px 24px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.8;
+  color: #CDD6F4;
+  overflow-x: auto;
+}
+.terminal-body .prompt { color: #A6E3A1; }
+.terminal-body .cmd { color: #CDD6F4; }
+.terminal-body .output { color: #6C7086; }
+.terminal-body .accent { color: #89B4FA; }
+.terminal-body .warning { color: #F9E2AF; }
+
+.cc-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 32px;
+}
+.cc-feature {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.cc-feature .cc-icon {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+.cc-feature h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--navy);
+}
+.cc-feature p {
+  font-size: 14px;
+  color: var(--ink-light);
+  line-height: 1.6;
+}
+.cc-vs {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  margin-top: 32px;
+}
+.cc-vs-card {
+  border-radius: var(--radius);
+  padding: 28px;
+}
+.cc-vs-card h4 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cc-vs-card ul {
+  list-style: none;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--ink-light);
+}
+.cc-vs-card li { padding-left: 16px; position: relative; }
+.cc-vs-card li::before {
+  content: '·';
+  position: absolute;
+  left: 4px;
+  font-weight: 700;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .container { padding: 0 28px; }
+  section { padding: 80px 0; }
+  .usecase-grid { grid-template-columns: 1fr; }
+  .cc-vs { grid-template-columns: 1fr; gap: 12px; }
+  .hero .meta { gap: 24px; }
+}
+
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+  section { padding: 60px 0; }
+  .hero { min-height: auto; padding: 120px 0 60px; }
+  .formula-box { padding: 40px 24px; }
+  .formula-box .formula { gap: 16px; }
+  .ba-grid { grid-template-columns: 1fr; }
+  .ba-arrow { transform: rotate(90deg); padding: 8px 0; }
+  .mistake-item { grid-template-columns: auto 1fr; }
+  .toc-float { display: none; }
+  nav .nav-links { display: none; }
+  .detail-block { padding: 24px 20px; }
+  .cta-section { padding: 48px 24px; }
+  .cc-feature-grid { grid-template-columns: 1fr; }
+  .hero .meta { flex-direction: column; gap: 12px; }
+  .section-num { font-size: 52px; }
+  .principle-grid { grid-template-columns: 1fr; }
+  .tool-grid { grid-template-columns: 1fr; }
+
+  /* 인라인 2칼럼 그리드 모바일 대응 */
+  [style*="grid-template-columns:1fr 1fr"],
+  [style*="grid-template-columns: 1fr 1fr"],
+  [style*="grid-template-columns:repeat(2"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 0 16px; }
+  section { padding: 48px 0; }
+  .hero { padding: 100px 0 40px; }
+  .hero h1 { font-size: 28px; }
+  .hero .subtitle { font-size: 16px; }
+  .formula-box { padding: 28px 16px; }
+  .formula-item .icon-circle { width: 60px; height: 60px; font-size: 24px; }
+  .formula-op { font-size: 24px; }
+  .section-title { font-size: 24px; }
+  .detail-block { padding: 20px 16px; }
+  .cta-section { padding: 36px 20px; border-radius: 16px; }
+  .cta-steps { gap: 16px; }
+  .cta-step { width: 100%; }
+  .highlight-box { padding: 16px 18px; font-size: 14px; }
+}
+</style>
+</head>
+<body>
+
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo"><span>HUNET</span> 리더스아카데미팀</div>
+    <ul class="nav-links">
+      <li><a href="#why">왜 AI인가</a></li>
+      <li><a href="#caution">주의사항</a></li>
+      <li><a href="#how">잘 쓰는 법</a></li>
+      <li><a href="#cases">활용 사례</a></li>
+      <li><a href="#org">AI 조직도</a></li>
+      <li><a href="#ops">운영팀 활용</a></li>
+      <li><a href="#tools">도구 & 세팅</a></li>
+      <li><a href="#cowork">CLAUDE.md & 스킬</a></li>
+      <li><a href="#start">시작하기</a></li>
+    </ul>
+  </div>
+</nav>
+<!-- TOC DOTS -->
+<div class="toc-float" id="tocDots"></div>
+
+<!-- ═══════ HERO ═══════ -->
+<section class="hero visible" id="hero">
+<div class="container">
+  <div class="hero-content">
+    <div class="eyebrow">AI 업무 활용 가이드</div>
+    <h1>AI를 잘 쓰는 건<br><em>좋은 질문</em>에서 시작됩니다</h1>
+    <p class="subtitle">
+      리더스아카데미팀이 실제 업무에서 AI를 활용하며 쌓은 노하우를 공유합니다.
+      프롬프트 기법이 아니라 '일하는 방식'의 전환에 대한 이야기입니다.
+    </p>
+    <div class="meta">
+      <div class="meta-item"><strong>작성팀</strong>리더스아카데미팀</div>
+      <div class="meta-item"><strong>대상</strong>하이브리드러닝운영팀</div>
+      <div class="meta-item"><strong>2026. 04</strong>Ver 2.0</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PART 1. 왜 AI인가 (20분)                    -->
+<!-- ═══════════════════════════════════════════ -->
+<section id="why">
+<div class="container">
+  <div class="section-num">01</div>
+  <div class="section-label">Why AI</div>
+  <h2 class="section-title">AI 활용의 핵심은<br>'메타인지'입니다</h2>
+  <p class="section-desc">
+    AI를 잘 쓰려면 프롬프트 기법보다 더 중요한 것이 있습니다.
+    <strong>내가 지금 어디에 있고, 어디로 가고 싶은지</strong>를 정확히 아는 것.
+    네비게이션에 출발지와 목적지를 정확히 찍어야 경로가 나오는 것과 같습니다.
+  </p>
+
+  <div class="formula-box">
+    <div class="formula">
+      <div class="formula-item">
+        <div class="icon-circle" style="background:rgba(239,68,68,0.15);">📍</div>
+        <div class="label" style="color:#FCA5A5;">현재 상태</div>
+        <div class="sub">지금 뭘 갖고 있고,<br>어디까지 했고,<br>뭐가 막혀있는지</div>
+      </div>
+      <div class="formula-op">+</div>
+      <div class="formula-item">
+        <div class="icon-circle" style="background:rgba(5,150,105,0.15);">🎯</div>
+        <div class="label" style="color:#6EE7B7;">원하는 방향</div>
+        <div class="sub">결과물이 어떤 모습이어야 하고,<br>누구를 위한 것이고,<br>어떤 수준이어야 하는지</div>
+      </div>
+      <div class="formula-op">=</div>
+      <div class="formula-item">
+        <div class="icon-circle" style="background:rgba(37,99,235,0.2);">⚡</div>
+        <div class="label" style="color:#93C5FD;">좋은 프롬프트</div>
+        <div class="sub">AI가 정확히<br>간극을 메워주는<br>결과물 생성</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:14px;color:var(--ink-muted);text-align:center;margin-top:16px;">이 공식은 아래 WHY-WHAT-HOW와 같은 개념의 다른 표현입니다. 현재 상태 = WHY, 원하는 방향 = WHAT.</p>
+
+  <!-- 3가지 마인드셋 -->
+  <h3 style="font-size:22px;font-weight:700;color:var(--navy);margin-top:64px;margin-bottom:8px;">기억할 3가지 관점</h3>
+  <p style="font-size:15px;color:var(--ink-light);margin-bottom:24px;">AI 활용 역량은 프롬프트 기법이 아니라 자기 업무와 목표에 대한 메타인지 능력입니다.</p>
+
+  <div class="principle-grid">
+    <div class="principle-card" style="border-top:3px solid var(--accent);">
+      <div class="p-icon">🧠</div>
+      <h4>"AI는 슈퍼 인턴이다"</h4>
+      <p>엄청 빠르고 지식도 많지만, 맥락과 판단은 부족합니다. 좋은 지시와 검수가 있어야 제 역할을 합니다. 내가 '시니어'로서 방향을 잡아야 합니다.</p>
+    </div>
+    <div class="principle-card" style="border-top:3px solid var(--emerald);">
+      <div class="p-icon">⚡</div>
+      <h4>"초안은 AI, 완성은 나"</h4>
+      <p>AI의 가장 큰 가치는 '빈 페이지의 공포'를 없애주는 것입니다. 80%짜리 초안을 빠르게 만들고, 나머지 20%에 전문성을 집중하세요.</p>
+    </div>
+    <div class="principle-card" style="border-top:3px solid var(--violet);">
+      <div class="p-icon">🔁</div>
+      <h4>"대화할수록 좋아진다"</h4>
+      <p>한 번에 완벽을 기대하지 마세요. AI와의 대화는 '핑퐁'입니다. 주고받을수록 내가 원하는 것에 가까워집니다.</p>
+    </div>
+  </div>
+
+  <!-- WHY-WHAT-HOW -->
+  <div style="margin-top:72px;padding-top:48px;border-top:1px solid var(--border);">
+    <h3 style="font-size:22px;font-weight:700;color:var(--navy);margin-bottom:8px;">WHY와 WHAT만 알면, AI를 쓸 수 있습니다</h3>
+    <p style="font-size:15px;color:var(--ink-light);margin-bottom:32px;">
+      프롬프트 공식을 외울 필요 없습니다. <strong>"왜 하는지"</strong>와 <strong>"뭘 원하는지"</strong>만 알면 됩니다.<br>
+      "어떻게"는 AI가 해줍니다. 여러분의 전문성은 방향을 정하는 데 있습니다.
+    </p>
+
+    <div class="grid-3">
+      <!-- WHY -->
+      <div style="background:#fff;border-radius:16px;border:1.5px solid var(--border);padding:28px 24px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--coral);"></div>
+        <div style="font-size:32px;font-weight:800;color:var(--coral);opacity:0.15;position:absolute;top:12px;right:16px;">WHY</div>
+        <div style="width:44px;height:44px;border-radius:12px;background:var(--coral-soft);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px;">🎯</div>
+        <div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:4px;">왜 하는지</div>
+        <div style="font-size:12px;font-weight:600;color:var(--coral);margin-bottom:12px;">반드시 내가 알아야</div>
+        <div style="font-size:13px;color:var(--ink-light);line-height:1.7;">
+          이 업무의 목적이 뭔지.<br>
+          누구를 위한 건지.<br>
+          왜 지금 해야 하는지.<br><br>
+          <strong style="color:var(--ink);">AI가 절대 대신할 수 없는 영역.</strong><br>
+          이걸 모르면 아무리 좋은 AI도 소용없습니다.
+        </div>
+      </div>
+
+      <!-- WHAT -->
+      <div style="background:#fff;border-radius:16px;border:1.5px solid var(--border);padding:28px 24px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--amber);"></div>
+        <div style="font-size:32px;font-weight:800;color:var(--amber);opacity:0.15;position:absolute;top:12px;right:16px;">WHAT</div>
+        <div style="width:44px;height:44px;border-radius:12px;background:var(--amber-soft);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px;">📋</div>
+        <div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:4px;">뭘 만들지</div>
+        <div style="font-size:12px;font-weight:600;color:var(--amber);margin-bottom:12px;">내가 정하되, AI가 옵션 제시</div>
+        <div style="font-size:13px;color:var(--ink-light);line-height:1.7;">
+          결과물의 형태와 조건.<br>
+          "교육 안내 메일", "4시간 커리큘럼",<br>
+          "결과 보고서" 같은 구체적 아웃풋.<br><br>
+          <strong style="color:var(--ink);">아이디어가 막히면 AI에게 옵션을 물어볼 수 있지만, 최종 선택은 내가.</strong>
+        </div>
+      </div>
+
+      <!-- HOW -->
+      <div style="background:#fff;border-radius:16px;border:1.5px solid var(--border);padding:28px 24px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--accent);"></div>
+        <div style="font-size:32px;font-weight:800;color:var(--accent);opacity:0.15;position:absolute;top:12px;right:16px;">HOW</div>
+        <div style="width:44px;height:44px;border-radius:12px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px;">🤖</div>
+        <div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:4px;">어떻게 만들지</div>
+        <div style="font-size:12px;font-weight:600;color:var(--accent);margin-bottom:12px;">AI가 실행, 내가 검수</div>
+        <div style="font-size:13px;color:var(--ink-light);line-height:1.7;">
+          초안 작성, 데이터 정리,<br>
+          포맷 변환, 번역, 요약.<br>
+          반복적인 실행 작업은 AI가 빠르게.<br><br>
+          <strong style="color:var(--ink);">단, 결과물의 정확성과 품질은 반드시 내가 확인.</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- 예시 프롬프트 -->
+    <h4 style="font-size:16px;font-weight:700;color:var(--navy);margin-top:36px;margin-bottom:16px;">실전 예시 — WHY와 WHAT이 명확한 프롬프트</h4>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div class="prompt-example" style="margin:0;">
+        <div class="prompt-label">WHY + WHAT이 명확한 예시</div>
+        <div class="prompt-text"><span class="comment"># WHY (목적)</span>
+다음 주 신입사원 교육을 앞두고
+참석자들에게 <span class="highlight">사전 안내를 해야 해.</span>
+
+<span class="comment"># WHAT (결과물)</span>
+교육 안내 메일을 써줘.
+일시: 4/7(월) 09:00~17:00
+장소: 본사 12층 / 대상: 20명
+톤: 환영하는 느낌, 친근하게
+
+<span class="comment"># HOW는 AI가 알아서</span>
+→ 메일 구조, 문장, 인사말은 AI가 처리</div>
+      </div>
+      <div class="prompt-example" style="margin:0;">
+        <div class="prompt-label">WHAT이 막힐 때 — AI에게 옵션 요청</div>
+        <div class="prompt-text"><span class="comment"># WHY (목적)</span>
+MZ세대 신임 팀장들의 <span class="highlight">리더십 전환을 도울</span>
+교육 과정을 새로 기획하려고 해.
+
+<span class="comment"># WHAT을 모르겠을 때</span>
+4시간짜리 과정인데
+<span class="highlight">컨셉을 3가지 제안해줘.</span>
+각각 한 줄 요약 + 차별점 + 모듈 구성안.
+
+<span class="comment"># AI가 옵션을 주면, 내가 고른다</span>
+→ 최종 선택과 판단은 내 몫</div>
+      </div>
+    </div>
+
+    <!-- 인내심 메시지 -->
+    <div style="margin-top:32px;background:linear-gradient(135deg, var(--accent-soft), var(--violet-soft));border-radius:16px;padding:28px 32px;display:flex;gap:24px;align-items:center;">
+      <div style="font-size:48px;flex-shrink:0;">🧘</div>
+      <div>
+        <div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:6px;">그리고 하나 더 — 인내심</div>
+        <div style="font-size:14px;color:var(--ink-light);line-height:1.8;">
+          첫 결과가 별로일 수 있습니다. <strong>그게 정상입니다.</strong><br>
+          AI를 잘 쓰는 사람들도 한 번에 완벽한 결과를 얻지 못합니다.<br>
+          <strong>2~3번 대화를 이어가면</strong> 원하는 수준에 도달합니다.<br>
+          "이건 안 되네" 하고 포기하는 순간이 가장 아까운 순간입니다.<br>
+          <strong style="color:var(--accent);">한 번만 더 말해보세요. 거기서 갈립니다.</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top:20px;">
+      <strong>정리하면:</strong> AI 활용에 필요한 건 세 가지뿐입니다.<br>
+      <strong>1) WHY — 왜 하는지 아는 것,</strong>
+      <strong>2) WHAT — 뭘 원하는지 말할 수 있는 것,</strong>
+      <strong>3) 인내심 — 2~3번은 이어가보는 것.</strong><br>
+      프롬프트 공식이나 기술적 지식은 필요 없습니다. 여러분이 이미 갖고 있는 업무 이해도가 AI 활용의 핵심입니다.
+    </div>
+  </div>
+
+</div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PART 2. 주의사항/보안                         -->
+<!-- ═══════════════════════════════════════════ -->
+<section id="caution">
+<div class="container">
+  <div class="section-num">02</div>
+  <div class="section-label">Caution</div>
+  <h2 class="section-title">AI 사용 시 꼭 알아두세요</h2>
+  <p class="section-desc">
+    AI를 편리하게 쓰되, 아래 4가지는 반드시 기억해주세요.
+  </p>
+
+  <div class="cc-feature-grid">
+    <div class="cc-feature" style="border-top:3px solid var(--coral);">
+      <div class="cc-icon">🔒</div>
+      <h4>민감정보 입력 금지</h4>
+      <p>고객 개인정보, 사내 기밀, 비밀번호를 AI에 입력하지 마세요. 외부 서버로 전송됩니다.</p>
+    </div>
+    <div class="cc-feature" style="border-top:3px solid var(--amber);">
+      <div class="cc-icon">⚠️</div>
+      <h4>AI는 틀릴 수 있습니다</h4>
+      <p>생성된 내용을 무조건 신뢰하지 마세요. 숫자, 날짜, 인용 출처는 반드시 원본 확인.</p>
+    </div>
+    <div class="cc-feature" style="border-top:3px solid var(--violet);">
+      <div class="cc-icon">©️</div>
+      <h4>저작권·표절 주의</h4>
+      <p>AI 생성물을 그대로 외부에 공개하기 전 표절 검사. 이미지·폰트 라이선스도 확인.</p>
+    </div>
+    <div class="cc-feature" style="border-top:3px solid var(--accent);">
+      <div class="cc-icon">👤</div>
+      <h4>최종 판단은 사람이</h4>
+      <p>AI는 도구입니다. 최종 의사결정, 판단, 책임은 담당자에게 있습니다.</p>
+    </div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:24px;">
+    <strong>AI는 도구, 판단은 내가.</strong>
+    섹션 01에서 배운 "초안은 AI, 완성은 나" 원칙과 같습니다. 이 원칙만 지키면 됩니다.
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PART 3. 잘 쓰는 법 (25분)                   -->
+<!-- ═══════════════════════════════════════════ -->
+<section id="how">
+<div class="container">
+  <div class="section-num">03</div>
+  <div class="section-label">How to Use</div>
+  <h2 class="section-title">AI를 잘 쓰는 법</h2>
+  <p class="section-desc">
+    프롬프트는 기술이 아니라 '커뮤니케이션'입니다.
+    새로 입사한 똑똑한 인턴에게 업무를 지시한다고 생각해보세요.
+  </p>
+
+  <!-- 4원칙 -->
+  <p style="font-size:14px;color:var(--ink-muted);margin-top:32px;margin-bottom:-8px;">앞서 배운 WHY-WHAT-HOW와 같은 원리입니다. 실전에서는 이 4가지로 풀어보세요.</p>
+  <div class="principle-grid">
+    <div class="principle-card">
+      <div class="p-num">01</div>
+      <div class="p-icon">🎯</div>
+      <h4>목적을 먼저 말하기</h4>
+      <p>"뭘 해줘"보다 "이걸 왜 하는지"를 먼저 알려주세요. 목적을 알면 AI가 맥락에 맞는 판단을 할 수 있습니다.</p>
+    </div>
+    <div class="principle-card">
+      <div class="p-num">02</div>
+      <div class="p-icon">📋</div>
+      <h4>조건을 구체적으로</h4>
+      <p>대상은 누구인지, 분량은 어느 정도인지, 어떤 톤이어야 하는지. 조건이 구체적일수록 결과의 품질이 올라갑니다.</p>
+    </div>
+    <div class="principle-card">
+      <div class="p-num">03</div>
+      <div class="p-icon">📎</div>
+      <h4>참고 자료 첨부하기</h4>
+      <p>기존 문서, 예시, 템플릿을 함께 주세요. "이런 느낌으로"는 모호하지만, 실제 예시는 명확합니다.</p>
+    </div>
+    <div class="principle-card">
+      <div class="p-num">04</div>
+      <div class="p-icon">🔄</div>
+      <h4>대화로 다듬기</h4>
+      <p>첫 결과가 완벽할 필요는 없습니다. "여기서 이 부분만 수정해줘"라고 이어가면 결과물이 점점 좋아집니다.</p>
+    </div>
+  </div>
+
+  <!-- 자주 하는 실수 -->
+  <h3 style="font-size:22px;font-weight:700;color:var(--navy);margin-top:64px;margin-bottom:24px;">자주 하는 실수 vs 해결법</h3>
+
+  <div class="mistake-list">
+    <div class="mistake-item">
+      <span class="tag bad">실수</span>
+      <span class="text">"제안서 써줘" — 목적·대상·조건 없이 한 줄로 요청</span>
+      <span class="tag good">해결</span>
+      <span class="text">현재 상태(RFP, 참고자료)와 원하는 방향(과정명, 출력 형식)을 함께 전달</span>
+    </div>
+    <div class="mistake-item">
+      <span class="tag bad">실수</span>
+      <span class="text">"더 좋게 해줘" — 모호한 수정 요청</span>
+      <span class="tag good">해결</span>
+      <span class="text">"2번 모듈의 세부내용에 실습 활동을 추가해줘" — 구체적 위치와 방향 지정</span>
+    </div>
+    <div class="mistake-item">
+      <span class="tag bad">실수</span>
+      <span class="text">참고 자료 없이 빈손으로 요청</span>
+      <span class="tag good">해결</span>
+      <span class="text">기존 문서, 템플릿, 예시 파일을 첨부. 재료가 있어야 AI도 제대로 요리합니다</span>
+    </div>
+    <div class="mistake-item">
+      <span class="tag bad">실수</span>
+      <span class="text">AI 결과물을 검수 없이 그대로 사용</span>
+      <span class="tag good">해결</span>
+      <span class="text">AI는 초안 생성 도구. 전문가의 최종 검수는 반드시 필요합니다</span>
+    </div>
+  </div>
+
+  <!-- 실전 프롬프트 비교 -->
+  <h3 style="font-size:22px;font-weight:700;color:var(--navy);margin-top:64px;margin-bottom:24px;">실전 프롬프트 비교</h3>
+
+  <div class="prompt-example">
+    <div class="prompt-label">❌ 나쁜 프롬프트</div>
+    <div class="prompt-text">교육 제안서 써줘</div>
+  </div>
+
+  <div class="prompt-example" style="margin-top:12px;">
+    <div class="prompt-label">✅ 좋은 프롬프트</div>
+    <div class="prompt-text"><span class="comment"># 현재 상태</span>
+코스콤에서 2026년 사내교육 위탁운영 RFP를 받았어.
+첨부한 PDF가 RFP 원본이고, 두 번째 파일은 작년 제안서야.
+
+<span class="comment"># 원하는 방향</span>
+이 중에서 <span class="highlight">직책자 역량강화</span>, <span class="highlight">신입사원 온보딩</span>,
+<span class="highlight">퇴직예정자 교육</span> 3개 과정의 커리큘럼을 작성해줘.
+
+<span class="comment"># 조건</span>
+- 휴넷 관점에서 작성 (작년 제안서 톤 참고)
+- 각 과정별 시간표 + 모듈 구성 + 세부 내용 포함
+- Word 문서로 출력</div>
+  </div>
+
+  <div class="prompt-example" style="margin-top:12px;">
+    <div class="prompt-label">📝 평가문항 출제</div>
+    <div class="prompt-text"><span class="highlight">평가문항 출제 스킬을 활용</span>해서 평가문항 출제해줘.
+첨부한 PDF는 "업무생산성을 높이는 완벽한 소통법" 1차시 원고야.
+하단 나레이션(#1, #2...) 부분이 실제 강의 내용이야.
+
+<span class="comment"># 조건</span>
+- 객관식(개념형) 1문항 + 객관식(상황형) 1문항 + 단답형 1문항
+- 협업 맥락으로 프레이밍, ~이다/~한다 체
+- 단순 암기가 아닌 적용·분석 수준</div>
+  </div>
+
+  <div class="prompt-example" style="margin-top:12px;">
+    <div class="prompt-label">📊 PPT 자동 생성</div>
+    <div class="prompt-text">SIS 프로그램 연사 배치안 PPT를 만들어줘.
+
+<span class="comment"># 현재 상태</span>
+4개 세션(5월/7월/9월/11월), 각 세션에 AI트랙과 Global트랙.
+트랙별 연사 3명씩, 총 24명.
+
+<span class="comment"># 원하는 방향</span>
+- <span class="highlight">월별 × 트랙 각 1장</span>, 총 8장
+- 연사 이름 / 소속 / 강연 주제 / 주요 경력 포함
+- 7월 Global TBD 자리는 빈 placeholder로
+- 어두운 네이비 톤 디자인</div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:24px;">
+    차이가 보이시나요? <strong>WHY(왜 하는지)</strong>와 <strong>WHAT(뭘 원하는지)</strong>이 명확하게 들어가 있습니다. 현재 상태와 원하는 방향 — 이 두 가지가 있으면 AI는 정확히 작동합니다.
+  </div>
+
+  <!-- 대화 이어가기 패턴 -->
+  <h3 style="font-size:22px;font-weight:700;color:var(--navy);margin-top:64px;margin-bottom:12px;">결과가 나온 후 — 이렇게 이어가세요</h3>
+  <p style="font-size:14px;color:var(--ink-light);margin-bottom:24px;">첫 결과가 완벽할 필요 없습니다. 아래 패턴으로 2~3번만 이어가면 원하는 결과물이 나옵니다.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;">
+    <div style="background:var(--surface-alt);border-radius:12px;padding:18px 20px;">
+      <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:8px;">분량 조절</div>
+      <div style="font-size:13px;color:var(--ink-light);line-height:1.7;">
+        "더 짧게 요약해줘, 3줄로"<br>
+        "2번 모듈을 더 자세하게 풀어줘"<br>
+        "이걸 A4 한 장 분량으로 맞춰줘"
+      </div>
+    </div>
+    <div style="background:var(--surface-alt);border-radius:12px;padding:18px 20px;">
+      <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:8px;">톤 변경</div>
+      <div style="font-size:13px;color:var(--ink-light);line-height:1.7;">
+        "좀 더 격식체로 바꿔줘"<br>
+        "딱딱한데, 친근한 톤으로 다시"<br>
+        "보고서용으로 ~입니다 체로 변환"
+      </div>
+    </div>
+    <div style="background:var(--surface-alt);border-radius:12px;padding:18px 20px;">
+      <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:8px;">형식 변환</div>
+      <div style="font-size:13px;color:var(--ink-light);line-height:1.7;">
+        "이걸 표로 정리해줘"<br>
+        "불릿 리스트 대신 번호 매겨서"<br>
+        "이 내용을 이메일 형식으로 바꿔줘"
+      </div>
+    </div>
+    <div style="background:var(--surface-alt);border-radius:12px;padding:18px 20px;">
+      <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:8px;">부분 수정</div>
+      <div style="font-size:13px;color:var(--ink-light);line-height:1.7;">
+        "3번 항목만 실습 중심으로 바꿔줘"<br>
+        "도입부는 좋은데 결론이 약해. 보완해줘"<br>
+        "수치를 넣어서 근거를 강화해줘"
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:16px;">
+    <strong>핵심:</strong> "더 좋게 해줘"는 모호합니다. <strong>"어디를 + 어떻게"</strong>로 말하면 됩니다. "2번 모듈의 세부내용에 실습 활동을 추가해줘"처럼.
+  </div>
+
+  <!-- 실제 대화 흐름 예시 -->
+  <h3 style="font-size:22px;font-weight:700;color:var(--navy);margin-top:64px;margin-bottom:12px;">실제 대화 흐름 — 이렇게 진행됩니다</h3>
+  <p style="font-size:14px;color:var(--ink-light);margin-bottom:24px;">교육 안내 메일을 만드는 실제 대화 과정입니다. 3번의 대화로 완성됩니다.</p>
+
+  <div style="display:flex;flex-direction:column;gap:0;">
+    <!-- 1차 요청 -->
+    <div style="display:flex;gap:16px;align-items:flex-start;">
+      <div style="width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;flex-shrink:0;">나</div>
+      <div style="flex:1;background:var(--accent-soft);border-radius:14px;padding:16px 20px;font-size:13px;color:var(--ink);line-height:1.7;">
+        신입사원 온보딩 교육 안내 메일 써줘.<br>
+        4월 7일(월) 09:00~17:00 / 본사 12층 대강의실 / 20명 / 노트북 지참
+      </div>
+    </div>
+    <div style="width:2px;height:12px;background:var(--border);margin-left:17px;"></div>
+
+    <!-- AI 1차 응답 -->
+    <div style="display:flex;gap:16px;align-items:flex-start;">
+      <div style="width:36px;height:36px;border-radius:50%;background:var(--surface-alt);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🤖</div>
+      <div style="flex:1;background:var(--surface-alt);border-radius:14px;padding:16px 20px;font-size:13px;color:var(--ink-light);line-height:1.7;">
+        <em style="color:var(--ink-muted);">(교육 안내 메일 초안이 나옴 — 기본적인 내용은 다 있지만 톤이 딱딱함)</em>
+      </div>
+    </div>
+    <div style="width:2px;height:12px;background:var(--border);margin-left:17px;"></div>
+
+    <!-- 2차 요청 -->
+    <div style="display:flex;gap:16px;align-items:flex-start;">
+      <div style="width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;flex-shrink:0;">나</div>
+      <div style="flex:1;background:var(--accent-soft);border-radius:14px;padding:16px 20px;font-size:13px;color:var(--ink);line-height:1.7;">
+        내용은 좋은데 <strong>톤이 너무 딱딱해.</strong> 신입사원이니까 환영하는 느낌으로 좀 더 따뜻하게 바꿔줘.<br>
+        그리고 <strong>하단에 문의처</strong>(리더스아카데미팀 내선 1234)도 넣어줘.
+      </div>
+    </div>
+    <div style="width:2px;height:12px;background:var(--border);margin-left:17px;"></div>
+
+    <!-- AI 2차 응답 -->
+    <div style="display:flex;gap:16px;align-items:flex-start;">
+      <div style="width:36px;height:36px;border-radius:50%;background:var(--surface-alt);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🤖</div>
+      <div style="flex:1;background:var(--surface-alt);border-radius:14px;padding:16px 20px;font-size:13px;color:var(--ink-light);line-height:1.7;">
+        <em style="color:var(--ink-muted);">(톤이 따뜻해지고 문의처 추가됨 — 거의 완성, 한 군데만 수정하면 될 것 같음)</em>
+      </div>
+    </div>
+    <div style="width:2px;height:12px;background:var(--border);margin-left:17px;"></div>
+
+    <!-- 3차 요청 -->
+    <div style="display:flex;gap:16px;align-items:flex-start;">
+      <div style="width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;flex-shrink:0;">나</div>
+      <div style="flex:1;background:var(--accent-soft);border-radius:14px;padding:16px 20px;font-size:13px;color:var(--ink);line-height:1.7;">
+        좋아! 마지막으로 <strong>"첫날 점심은 회사에서 제공"</strong>이랑 <strong>"복장은 비즈니스 캐주얼"</strong> 추가해줘.
+      </div>
+    </div>
+    <div style="width:2px;height:12px;background:var(--border);margin-left:17px;"></div>
+
+    <!-- 완성 -->
+    <div style="display:flex;gap:16px;align-items:flex-start;">
+      <div style="width:36px;height:36px;border-radius:50%;background:var(--emerald);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;flex-shrink:0;">✓</div>
+      <div style="flex:1;background:var(--emerald-soft);border-radius:14px;padding:16px 20px;font-size:13px;color:var(--ink);line-height:1.7;">
+        <strong>완성!</strong> 3번의 대화로 그대로 발송할 수 있는 메일이 됐습니다.<br>
+        <span style="color:var(--ink-muted);">총 소요 시간: 약 2분 (직접 쓰면 15~20분)</span>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="highlight-box" style="margin-top:20px;">
+    앞서 배운 인내심을 기억하세요. 대화를 이어가면 됩니다.
+  </div>
+  <!-- AI가 엉뚱한 결과 줄 때 -->
+  <h3 style="font-size:22px;font-weight:700;color:var(--navy);margin-top:64px;margin-bottom:12px;">AI 결과가 마음에 안 들 때 — 포기하지 마세요</h3>
+  <p style="font-size:14px;color:var(--ink-light);margin-bottom:24px;">첫 결과가 별로라고 AI를 못 쓰겠다고 생각하지 마세요. 90%는 요청 방식 문제입니다.</p>
+
+  <div style="display:flex;flex-direction:column;gap:10px;">
+    <div style="display:flex;gap:16px;align-items:center;background:var(--surface-alt);border-radius:12px;padding:16px 20px;">
+      <div style="font-size:13px;font-weight:700;color:var(--coral);white-space:nowrap;min-width:140px;">너무 길게 나와요</div>
+      <div style="width:24px;text-align:center;color:var(--ink-muted);">→</div>
+      <div style="font-size:13px;color:var(--ink-light);">"이걸 <strong>5줄로 요약해줘</strong>" 또는 "핵심만 <strong>불릿 3개로</strong>"</div>
+    </div>
+    <div style="display:flex;gap:16px;align-items:center;background:var(--surface-alt);border-radius:12px;padding:16px 20px;">
+      <div style="font-size:13px;font-weight:700;color:var(--coral);white-space:nowrap;min-width:140px;">내용이 틀려요</div>
+      <div style="width:24px;text-align:center;color:var(--ink-muted);">→</div>
+      <div style="font-size:13px;color:var(--ink-light);">"<strong>이 부분은 틀렸어. 정확한 내용은 이거야:</strong> [올바른 정보]" 로 정정</div>
+    </div>
+    <div style="display:flex;gap:16px;align-items:center;background:var(--surface-alt);border-radius:12px;padding:16px 20px;">
+      <div style="font-size:13px;font-weight:700;color:var(--coral);white-space:nowrap;min-width:140px;">방향이 완전 달라요</div>
+      <div style="width:24px;text-align:center;color:var(--ink-muted);">→</div>
+      <div style="font-size:13px;color:var(--ink-light);">"아니, 내가 원하는 건 이게 아니라 <strong>[원하는 방향을 구체적으로 다시 설명]</strong>"</div>
+    </div>
+    <div style="display:flex;gap:16px;align-items:center;background:var(--surface-alt);border-radius:12px;padding:16px 20px;">
+      <div style="font-size:13px;font-weight:700;color:var(--coral);white-space:nowrap;min-width:140px;">톤이 안 맞아요</div>
+      <div style="width:24px;text-align:center;color:var(--ink-muted);">→</div>
+      <div style="font-size:13px;color:var(--ink-light);">"이건 너무 딱딱해. <strong>~해요 체로, 친근하게</strong> 다시 써줘"</div>
+    </div>
+    <div style="display:flex;gap:16px;align-items:center;background:var(--surface-alt);border-radius:12px;padding:16px 20px;">
+      <div style="font-size:13px;font-weight:700;color:var(--coral);white-space:nowrap;min-width:140px;">뭘 더 넣고 싶어요</div>
+      <div style="width:24px;text-align:center;color:var(--ink-muted);">→</div>
+      <div style="font-size:13px;color:var(--ink-light);">"여기에 <strong>[추가할 내용]</strong>도 넣어줘" — 부분 추가가 가장 쉬움</div>
+    </div>
+    <div style="display:flex;gap:16px;align-items:center;background:var(--surface-alt);border-radius:12px;padding:16px 20px;">
+      <div style="font-size:13px;font-weight:700;color:var(--coral);white-space:nowrap;min-width:140px;">아예 처음부터 다시</div>
+      <div style="width:24px;text-align:center;color:var(--ink-muted);">→</div>
+      <div style="font-size:13px;color:var(--ink-light);">"다시 해줘. 이번에는 <strong>[빠졌던 조건들을 추가해서 다시 요청]</strong>"</div>
+    </div>
+  </div>
+
+  <!-- 이럴 때 이렇게 — 한 줄 템플릿 -->
+  <h3 style="font-size:22px;font-weight:700;color:var(--navy);margin-top:64px;margin-bottom:12px;">이럴 때 이렇게 — 복사해서 바로 쓰세요</h3>
+  <p style="font-size:14px;color:var(--ink-light);margin-bottom:24px;">가장 많이 쓰는 업무별 한 줄 시작 템플릿입니다. 이것만 복사해서 세부 정보를 채워넣으면 됩니다.</p>
+
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;">
+    <div style="display:grid;grid-template-columns:140px 1fr;font-size:12px;font-weight:600;color:var(--ink-muted);background:var(--surface-alt);padding:12px 20px;border-bottom:1px solid var(--border);">
+      <div>상황</div>
+      <div>이렇게 시작하세요</div>
+    </div>
+    <div style="display:grid;grid-template-columns:140px 1fr;font-size:13px;padding:14px 20px;border-bottom:1px solid var(--border);align-items:center;">
+      <div style="font-weight:600;color:var(--navy);">메일 써야 할 때</div>
+      <div style="color:var(--ink-light);line-height:1.6;">"[받는 사람]에게 [목적]으로 메일 써줘. 톤은 [격식/친근], 핵심 전달 사항은 [내용]"</div>
+    </div>
+    <div style="display:grid;grid-template-columns:140px 1fr;font-size:13px;padding:14px 20px;border-bottom:1px solid var(--border);align-items:center;background:var(--surface-alt);">
+      <div style="font-weight:600;color:var(--navy);">보고서 초안</div>
+      <div style="color:var(--ink-light);line-height:1.6;">"[교육명] 결과 보고서 써줘. 참석 [N명], 만족도 [점], 주요 피드백은 [내용]. 양식은 개요/현황/분석/개선 방안"</div>
+    </div>
+    <div style="display:grid;grid-template-columns:140px 1fr;font-size:13px;padding:14px 20px;border-bottom:1px solid var(--border);align-items:center;">
+      <div style="font-weight:600;color:var(--navy);">커리큘럼 설계</div>
+      <div style="color:var(--ink-light);line-height:1.6;">"[주제] 교육 커리큘럼 만들어줘. 대상 [누구], 시간 [몇 시간], 형태 [대면/온라인]. 시간대별 모듈 표로"</div>
+    </div>
+    <div style="display:grid;grid-template-columns:140px 1fr;font-size:13px;padding:14px 20px;border-bottom:1px solid var(--border);align-items:center;background:var(--surface-alt);">
+      <div style="font-weight:600;color:var(--navy);">설문 분석</div>
+      <div style="color:var(--ink-light);line-height:1.6;">"첨부한 설문 결과를 분석해줘. 항목별 평균, 상위/하위 3개, 자유응답 긍정/부정 분류"</div>
+    </div>
+    <div style="display:grid;grid-template-columns:140px 1fr;font-size:13px;padding:14px 20px;border-bottom:1px solid var(--border);align-items:center;">
+      <div style="font-weight:600;color:var(--navy);">문서 요약</div>
+      <div style="color:var(--ink-light);line-height:1.6;">"첨부한 문서를 [3줄/1페이지/표] 형식으로 요약해줘. 핵심 키워드 포함"</div>
+    </div>
+    <div style="display:grid;grid-template-columns:140px 1fr;font-size:13px;padding:14px 20px;border-bottom:1px solid var(--border);align-items:center;background:var(--surface-alt);">
+      <div style="font-weight:600;color:var(--navy);">아이디어 구상</div>
+      <div style="color:var(--ink-light);line-height:1.6;">"[주제]로 교육 과정을 기획하려고 해. 대상 [누구], [N시간]. 컨셉 3개 제안해줘"</div>
+    </div>
+    <div style="display:grid;grid-template-columns:140px 1fr;font-size:13px;padding:14px 20px;align-items:center;">
+      <div style="font-weight:600;color:var(--navy);">번역·교정</div>
+      <div style="color:var(--ink-light);line-height:1.6;">"이 문서를 [자연스러운 한국어/영어]로 번역해줘" 또는 "어색한 표현 교정해줘"</div>
+    </div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:16px;">
+    <strong>팁:</strong> 처음엔 이 템플릿을 복사해서 [ ] 부분만 채워보세요. 몇 번 해보면 자기만의 패턴이 생깁니다.
+  </div>
+
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PART 4. 활용 사례 (20분)                    -->
+<!-- ═══════════════════════════════════════════ -->
+<section id="cases">
+<div class="container">
+  <div class="section-num">04</div>
+  <div class="section-label">Use Cases</div>
+  <h2 class="section-title">우리 팀은 이렇게 쓰고 있습니다</h2>
+  <p class="section-desc">
+    리더스아카데미팀이 실제 업무에서 AI를 적용한 5가지 사례입니다.
+    각 사례의 Before/After를 함께 살펴봅니다.
+  </p>
+  <!-- 사례 1: 제안서+PPT -->
+  <div class="detail-block" style="margin-top:32px;">
+    <div class="detail-badge" style="background:var(--accent-soft);color:var(--accent);">📋 사례 1</div>
+    <h3>제안서·PPT 자동 생성</h3>
+    <p class="detail-desc">
+      교육 제안서 커리큘럼(Word)과 연사 배치안 슬라이드(PPT) 모두 AI로 초안을 생성합니다.
+      기존 자료나 데이터를 AI에게 참고로 주고, 정해진 포맷에 맞춰 문서를 뽑아냅니다.
+    </p>
+    <div class="ba-grid">
+      <div class="ba-col before">
+        <h4>🔴 Before</h4>
+        <ul>
+          <li>과거 제안서를 하나씩 찾아서 참고</li>
+          <li>커리큘럼·연사 카드를 수기 작성</li>
+          <li>포맷·디자인 맞추기에 시간 소모</li>
+          <li>연사 변경, 과정 수정 시 재작업</li>
+        </ul>
+      </div>
+      <div class="ba-arrow">→</div>
+      <div class="ba-col after">
+        <h4>🟢 After (AI 활용)</h4>
+        <ul>
+          <li>RFP + 기존 자료를 AI에게 참고로 제공</li>
+          <li>커리큘럼 초안(Word), PPT 슬라이드 생성</li>
+          <li>데이터만 수정하면 문서가 재생성</li>
+          <li>검수와 최종 판단에 시간을 집중</li>
+        </ul>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <strong>핵심:</strong> 제안서든 PPT든 원리는 같습니다.
+      <strong>참고 자료(현재 상태) + 원하는 결과물 조건(방향)</strong>을 명확히 전달하면 AI가 초안을 만들고, 사람이 검수해서 완성합니다.
+    </div>
+  </div>
+
+  <!-- 사례 2: 롤플레잉 -->
+  <div class="detail-block">
+    <div class="detail-badge" style="background:var(--violet-soft);color:var(--violet);">🎭 사례 2</div>
+    <h3>AI 롤플레잉 시뮬레이션 개발</h3>
+    <p class="detail-desc">
+      Claude Code에서 6개 AI 봇으로 구성된 개발 조직을 운영하고 있습니다.
+      교육 주제를 지정하면 9인 서브에이전트 팀이 시나리오·프롬프트·UI·평가 리포트를 자동 생성하고,
+      독립 평가관이 단계별로 품질을 검증합니다. 디스코드 채널에서 실시간 협업하며 작업합니다.
+    </p>
+    <div class="ba-grid">
+      <div class="ba-col before">
+        <h4>🔴 Before</h4>
+        <ul>
+          <li>시나리오 기획·개발에 오랜 시간 소요</li>
+          <li>외부 개발사 의뢰 시 커뮤니케이션 비용</li>
+          <li>수정·반영 사이클이 길음</li>
+          <li>시나리오 변경 시 재작업 부담</li>
+        </ul>
+      </div>
+      <div class="ba-arrow">→</div>
+      <div class="ba-col after">
+        <h4>🟢 After (AI 활용)</h4>
+        <ul>
+          <li>6개 AI 봇이 디스코드에서 실시간 협업</li>
+          <li>22인 서브에이전트가 역할별 산출물 자동 생성</li>
+          <li>독립 평가관이 단계별 품질 게이트 운영</li>
+          <li>교육학 프레임워크 기반 평가 로직 탑재</li>
+        </ul>
+      </div>
+    </div>
+    <div class="prompt-example" style="margin-top:20px;">
+      <div class="prompt-label">🎭 AI 롤플레잉 솔루션 요청</div>
+      <div class="prompt-text"><span class="comment"># 교육 주제</span>
+<span class="highlight">팀원 코칭 SBI 피드백</span> 롤플레잉 솔루션 만들어줘.
+
+<span class="comment"># 대상</span>
+과장~차장급 중간관리자, 팀원 면담 경험 부족한 신임 리더
+
+<span class="comment"># 시나리오</span>
+- 반복 지각하는 팀원 면담
+- 성과 부진 팀원 코칭
+- 업무 태도 불량 팀원 피드백
+
+<span class="comment"># 조건</span>
+- SBI(상황-행동-영향) 프레임워크 기반
+- AI가 팀원 역할, 학습자가 리더 역할
+- 대화 후 역량별 평가 리포트 자동 생성</div>
+    </div>
+    <div class="highlight-box">
+      <strong>핵심:</strong> 교육학적 프레임워크(STAR, SBI, GROW)를 AI 시스템에 녹여서 <strong>평가 기준까지 설계</strong>한 것이 차별점입니다.
+    </div>
+  </div>
+
+  <!-- 사례 3: 평가문항 -->
+  <div class="detail-block">
+    <div class="detail-badge" style="background:var(--amber-soft);color:var(--amber);">📝 사례 3</div>
+    <h3>평가문항 자동 출제</h3>
+    <p class="detail-desc">
+      이러닝 강의 원고(PDF/PPT)를 업로드하면 객관식·단답형 평가문항을 출제합니다.
+      차시별 3문항씩, 출제 기준(개념 이해형, 상황 해석형, 단답형)을 제어합니다.
+    </p>
+    <div class="ba-grid">
+      <div class="ba-col before">
+        <h4>🔴 Before</h4>
+        <ul>
+          <li>강의 원고를 읽고 출제 포인트 추출</li>
+          <li>문항별 보기·정답·해설 수기 작성</li>
+          <li>난이도·유형 균형 맞추기 어려움</li>
+        </ul>
+      </div>
+      <div class="ba-arrow">→</div>
+      <div class="ba-col after">
+        <h4>🟢 After (AI 활용)</h4>
+        <ul>
+          <li>강의 원고 업로드 → 문항 초안 자동 생성</li>
+          <li>유형별(개념/상황/단답) 균형 자동 배분</li>
+          <li>검수 후 수정 요청으로 품질 조정</li>
+        </ul>
+      </div>
+    </div>
+    <div class="prompt-example" style="margin-top:20px;">
+      <div class="prompt-label">📝 평가문항 출제 요청</div>
+      <div class="prompt-text"><span class="comment"># 강의 원고</span>
+첨부한 PDF는 <span class="highlight">"업무생산성을 높이는 완벽한 소통법"</span> 1차시 원고야.
+하단 나레이션(#1, #2...) 부분이 실제 강의 내용이야.
+
+<span class="comment"># 출제 조건</span>
+- 객관식(개념이해형) 1문항
+- 객관식(상황해석형) 1문항
+- 단답형 1문항
+- 협업 맥락으로 프레이밍, ~이다/~한다 체
+- 단순 암기가 아닌 <span class="highlight">적용·분석 수준</span></div>
+    </div>
+  </div>
+
+  <!-- 사례 4: AI 진단 프로그램 관리자 페이지 -->
+  <div class="detail-block">
+    <div class="detail-badge" style="background:var(--emerald-soft);color:var(--emerald);">🗂️ 사례 4</div>
+    <h3>AI 진단 프로그램 관리자 페이지</h3>
+    <p class="detail-desc">
+      관리자가 직접 웹에서 진단 세트를 생성·관리합니다.
+      4가지 진단 유형(역량진단/리더십스타일/상황판단SJT/인지역량) 선택부터 문항 구성, AI 컨텍스트 설정, 리포트 옵션까지 위자드로 완성합니다.
+    </p>
+    <div class="ba-grid">
+      <div class="ba-col before">
+        <h4>🔴 Before</h4>
+        <ul>
+          <li>진단 프로그램 세팅에 개발자 필요</li>
+          <li>문항 변경 시 코드 수정 필요</li>
+          <li>유형별(역량/스타일/SJT/인지) 진단 세트 관리가 복잡</li>
+        </ul>
+      </div>
+      <div class="ba-arrow">→</div>
+      <div class="ba-col after">
+        <h4>🟢 After (AI 활용)</h4>
+        <ul>
+          <li>관리자가 직접 웹에서 진단 세트 생성·관리</li>
+          <li>4가지 진단 유형 선택 → 문항 구성 → AI 컨텍스트 설정</li>
+          <li>리포트 옵션까지 위자드로 완성</li>
+          <li>코드 수정 없이 운영 가능</li>
+        </ul>
+      </div>
+    </div>
+    <!-- 스크린샷 -->
+    <div class="screenshot-grid">
+      <div class="screenshot-frame">
+        <div class="screenshot-label">진단 관리 대시보드</div>
+        <img src="screenshot-admin-sets.png" alt="AI 진단 관리 대시보드">
+      </div>
+      <div class="screenshot-frame">
+        <div class="screenshot-label">세트 생성 위자드</div>
+        <img src="screenshot-admin-wizard.png" alt="진단 세트 생성 위자드">
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top:16px;">
+      <strong>핵심:</strong> 관리자가 코드 없이 진단을 세팅하고 배포할 수 있습니다.
+      개발자 의존 없이 <strong>진단 유형 선택 → 문항 구성 → 배포</strong>까지 원스톱으로 완료합니다.
+    </div>
+  </div>
+
+  <!-- 사례 5: AI 에세이 채점 자동화 -->
+  <div class="detail-block">
+    <div class="detail-badge" style="background:var(--coral-soft);color:var(--coral);">✍️ 사례 5</div>
+    <h3>AI 에세이 채점 자동화</h3>
+    <p class="detail-desc">
+      에세이 파일을 첨부하면 루브릭 기반 자동 채점.
+      항목별 점수 + 등급 판정 + 종합 코멘트 + 평가 총평을 자동 생성하고,
+      개인별 Word 피드백 문서 + Excel 성적 요약표까지 일괄 출력합니다.
+    </p>
+    <div class="ba-grid">
+      <div class="ba-col before">
+        <h4>🔴 Before</h4>
+        <ul>
+          <li>서술형 과제 30명분을 1명씩 읽고 수기 채점</li>
+          <li>개인별 피드백 작성에 2~3일 소요</li>
+          <li>채점 일관성 유지 어려움</li>
+        </ul>
+      </div>
+      <div class="ba-arrow">→</div>
+      <div class="ba-col after">
+        <h4>🟢 After (AI 활용)</h4>
+        <ul>
+          <li>루브릭 기반 자동 채점 + 등급 판정</li>
+          <li>항목별 점수 + 종합 코멘트 자동 생성</li>
+          <li>개인별 Word 피드백 + Excel 성적표 일괄 출력</li>
+          <li>교차 검증(v2)으로 채점 일관성 확보</li>
+        </ul>
+      </div>
+    </div>
+    <div class="prompt-example" style="margin-top:20px;">
+      <div class="prompt-label">✍️ 에세이 채점 요청</div>
+      <div class="prompt-text"><span class="comment"># 상황</span>
+첨부한 PDF 30개는 <span class="highlight">"전략경영"</span> 과목 에세이야.
+문항은 2개 선택형, 각 50점 (총 100점).
+
+<span class="comment"># 채점 기준</span>
+| 항목 | 배점 |
+|------|------|
+| 핵심 개념 선정 및 정의 | 10점 |
+| 현장 사례 구체성 | 15점 |
+| 리더의 대응 전략 | 15점 |
+| 성찰의 깊이 | 10점 |
+
+<span class="comment"># 요청</span>
+1. 학습자별 채점 결과 텍스트 생성 (문항별 점수 + 근거 + 종합 코멘트)
+2. 개인별 Word 피드백 문서 생성
+3. 전체 Excel 성적 요약표 생성
+4. 교차 검증(v2) 포함</div>
+    </div>
+    <!-- 스크린샷 -->
+    <div class="screenshot-frame screenshot-single" style="margin-top:20px;">
+      <div class="screenshot-label">채점 결과 PDF — 개인별 자동 생성</div>
+      <img src="screenshot-essay-result.png" alt="에세이 채점 결과 PDF">
+    </div>
+
+    <div class="highlight-box" style="margin-top:16px;">
+      <strong>핵심:</strong> 30명 에세이 채점을 수기 3일에서 AI 30분으로 단축합니다.
+      루브릭 기반 <strong>일관된 채점 + 개인별 피드백 + 성적표</strong>까지 자동 생성합니다.
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PART 5. AI 조직도                            -->
+<!-- ═══════════════════════════════════════════ -->
+<section id="org">
+<div class="container">
+  <div class="section-num">05</div>
+  <div class="section-label">AI Org</div>
+  <h2 class="section-title">AI 에이전트 조직</h2>
+  <p class="section-desc">
+    Claude Code 기반 6개 봇 + 22인 서브에이전트로 구성된 AI 개발 조직입니다.
+    각 에이전트에 전문 영역·품질 기준·평가 체계를 설정하여 운영합니다.
+  </p>
+  <div class="detail-block" style="padding:48px 36px;">
+    <div class="detail-badge" style="background:var(--emerald-soft);color:var(--emerald);">🤖 AI 에이전트 팀</div>
+    <h3>AI 에이전트 조직 구성도</h3>
+    <p class="detail-desc">Claude Code 기반 6개 봇 + 22인 서브에이전트로 구성된 AI 개발 조직입니다.</p>
+
+    <div style="background:var(--navy);border-radius:16px;padding:40px 28px;margin:24px 0;color:#fff;position:relative;overflow:hidden;">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 20% 30%,rgba(37,99,235,0.12) 0%,transparent 50%),radial-gradient(ellipse at 80% 70%,rgba(124,58,237,0.08) 0%,transparent 50%);pointer-events:none;"></div>
+      <div style="position:relative;z-index:1;">
+
+        <!-- 총괄 -->
+        <div style="text-align:center;margin-bottom:28px;">
+          <div style="display:inline-block;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:12px;padding:14px 36px;">
+            <div style="font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:0.05em;">COMMANDER</div>
+            <div style="font-size:17px;font-weight:700;margin-top:2px;">총괄 에이전트</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:4px;">지시 배분 · Gate 검토 · 보고</div>
+          </div>
+        </div>
+        <div style="text-align:center;margin-bottom:20px;font-size:16px;color:rgba(255,255,255,0.2);">┃</div>
+
+        <!-- 5팀 -->
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;">
+
+          <!-- 솔루션 개발팀 -->
+          <div style="background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.25);border-radius:12px;padding:14px 10px;">
+            <div style="text-align:center;margin-bottom:12px;">
+              <div style="font-size:20px;">🛠️</div>
+              <div style="font-size:13px;font-weight:700;color:#93C5FD;margin-top:4px;">솔루션 개발팀</div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.4);">AI 교육 솔루션 설계·개발</div>
+            </div>
+            <div style="border-top:1px solid rgba(37,99,235,0.2);padding-top:10px;display:flex;flex-direction:column;gap:4px;">
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(37,99,235,0.12);border-radius:6px;">솔루션 아키텍트</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(37,99,235,0.12);border-radius:6px;">HRD 전문가</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(37,99,235,0.12);border-radius:6px;">평가설계 전문가</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(37,99,235,0.12);border-radius:6px;">시나리오 기획</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(37,99,235,0.12);border-radius:6px;">상황 설계</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(37,99,235,0.12);border-radius:6px;">프롬프트 엔지니어</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(37,99,235,0.12);border-radius:6px;">백엔드 개발자</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(37,99,235,0.12);border-radius:6px;">QA 테스터</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(37,99,235,0.12);border-radius:6px;">보안 전문가</div>
+            </div>
+            <div style="text-align:center;margin-top:8px;font-size:10px;color:#93C5FD;font-weight:600;">9명</div>
+          </div>
+
+          <!-- 리서치팀 -->
+          <div style="background:rgba(5,150,105,0.1);border:1px solid rgba(5,150,105,0.25);border-radius:12px;padding:14px 10px;">
+            <div style="text-align:center;margin-bottom:12px;">
+              <div style="font-size:20px;">🔍</div>
+              <div style="font-size:13px;font-weight:700;color:#6EE7B7;margin-top:4px;">리서치팀</div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.4);">HRD 리서치·자료 분석</div>
+            </div>
+            <div style="border-top:1px solid rgba(5,150,105,0.2);padding-top:10px;display:flex;flex-direction:column;gap:4px;">
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(5,150,105,0.12);border-radius:6px;">학술 리서처</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(5,150,105,0.12);border-radius:6px;">시장 분석가</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(5,150,105,0.12);border-radius:6px;">경쟁사 분석가</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(5,150,105,0.12);border-radius:6px;">트렌드 워처</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(5,150,105,0.12);border-radius:6px;">데이터 검증관</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(5,150,105,0.12);border-radius:6px;">자료 편집관</div>
+            </div>
+            <div style="text-align:center;margin-top:8px;font-size:10px;color:#6EE7B7;font-weight:600;">6명</div>
+          </div>
+
+          <!-- 제안서팀 -->
+          <div style="background:rgba(217,119,6,0.1);border:1px solid rgba(217,119,6,0.25);border-radius:12px;padding:14px 10px;">
+            <div style="text-align:center;margin-bottom:12px;">
+              <div style="font-size:20px;">📄</div>
+              <div style="font-size:13px;font-weight:700;color:#FCD34D;margin-top:4px;">제안서팀</div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.4);">HRD 제안서 자동 생성</div>
+            </div>
+            <div style="border-top:1px solid rgba(217,119,6,0.2);padding-top:10px;display:flex;flex-direction:column;gap:4px;">
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(217,119,6,0.12);border-radius:6px;">제안서 아키텍트</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(217,119,6,0.12);border-radius:6px;">HRD 콘텐츠 전문가</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(217,119,6,0.12);border-radius:6px;">프롬프트 엔지니어</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(217,119,6,0.12);border-radius:6px;">PPTX 디자이너</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(217,119,6,0.12);border-radius:6px;">풀스택 개발자</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(217,119,6,0.12);border-radius:6px;">QA 테스터</div>
+            </div>
+            <div style="text-align:center;margin-top:8px;font-size:10px;color:#FCD34D;font-weight:600;">6명</div>
+          </div>
+
+          <!-- 독립 평가관 -->
+          <div style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25);border-radius:12px;padding:14px 10px;">
+            <div style="text-align:center;margin-bottom:12px;">
+              <div style="font-size:20px;">⚖️</div>
+              <div style="font-size:13px;font-weight:700;color:#C4B5FD;margin-top:4px;">독립 평가관</div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.4);">산출물 독립 평가·감찰</div>
+            </div>
+            <div style="border-top:1px solid rgba(124,58,237,0.2);padding-top:10px;display:flex;flex-direction:column;gap:4px;">
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(124,58,237,0.12);border-radius:6px;">작업 전 합의서 작성</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(124,58,237,0.12);border-radius:6px;">단계별 평가 채점</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(124,58,237,0.12);border-radius:6px;">Gate 통과/반려 판정</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(124,58,237,0.12);border-radius:6px;">품질 기준 감시</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(124,58,237,0.12);border-radius:6px;">순서 꼬임 방지</div>
+            </div>
+            <div style="text-align:center;margin-top:8px;font-size:10px;color:#C4B5FD;font-weight:600;">하네스 엔지니어링</div>
+          </div>
+
+          <!-- UI/UX 디자이너 -->
+          <div style="background:rgba(236,72,153,0.1);border:1px solid rgba(236,72,153,0.25);border-radius:12px;padding:14px 10px;">
+            <div style="text-align:center;margin-bottom:12px;">
+              <div style="font-size:20px;">🎨</div>
+              <div style="font-size:13px;font-weight:700;color:#F9A8D4;margin-top:4px;">UI/UX 디자이너</div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.4);">UI·CSS 디자인 전담</div>
+            </div>
+            <div style="border-top:1px solid rgba(236,72,153,0.2);padding-top:10px;display:flex;flex-direction:column;gap:4px;">
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(236,72,153,0.12);border-radius:6px;">UI/UX 설계·구현</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(236,72,153,0.12);border-radius:6px;">CSS 디자인 시스템</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(236,72,153,0.12);border-radius:6px;">3테마 (라이트/세피아/다크)</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(236,72,153,0.12);border-radius:6px;">반응형·접근성</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);padding:3px 8px;background:rgba(236,72,153,0.12);border-radius:6px;">카리나 백엔드와 병렬 개발</div>
+            </div>
+            <div style="text-align:center;margin-top:8px;font-size:10px;color:#F9A8D4;font-weight:600;">솔루션-개발 채널 활동</div>
+          </div>
+
+        </div>
+
+        <!-- 하단 요약 -->
+        <div style="margin-top:24px;text-align:center;padding-top:20px;border-top:1px solid rgba(255,255,255,0.08);">
+          <div style="display:inline-flex;gap:24px;font-size:12px;color:rgba(255,255,255,0.5);">
+            <span>총 <strong style="color:#fff;">6</strong>개 봇</span>
+            <span>서브에이전트 <strong style="color:#fff;">22</strong>명</span>
+            <span>디스코드 채널 <strong style="color:#fff;">4</strong>개</span>
+            <span>실시간 채널 대화 기반 협업</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="prompt-example" style="margin-top:24px;">
+      <div class="prompt-label">👑 총괄 에이전트에게 프로젝트 지시</div>
+      <div class="prompt-text"><span class="comment"># 지시</span>
+<span class="highlight">신입사원 온보딩 교육</span> AI 롤플레잉 솔루션 만들어.
+
+<span class="comment"># 상세</span>
+대상: 2026년 하반기 신입사원 (20명)
+교육 목표: 비즈니스 매너, 보고·연락·상담, 선배와의 소통
+시나리오 3개: 첫 보고, 실수 보고, 도움 요청
+
+<span class="comment"># 조건</span>
+- 리서치팀이 신입사원 온보딩 트렌드 먼저 조사
+- 조사 결과 기반으로 솔루션팀 착수
+- 각 단계마다 평가관 평가 통과 후 진행</div>
+    </div>
+    <div class="highlight-box">
+      <strong>핵심:</strong> Anthropic의 <strong>하네스 엔지니어링</strong> 방법론 적용 — 생성하는 AI와 평가하는 AI를 분리하여 품질을 보장합니다. 모든 산출물은 독립 평가관의 평가를 통과해야 다음 단계로 진행됩니다.
+    </div>
+  </div>
+
+  <!-- 에이전트 역할 상세 소개 -->
+  <div class="detail-block" style="padding:48px 36px;">
+    <div class="detail-badge" style="background:var(--violet-soft);color:var(--violet);">📑 에이전트 상세</div>
+    <h3>각 에이전트는 이런 업무를 수행합니다</h3>
+    <p class="detail-desc">단순 역할 분담이 아니라, 각 에이전트에 전문 스펙·업무 범위·품질 기준을 설정하여 운영합니다.</p>
+
+    <div style="display:flex;flex-direction:column;gap:20px;margin-top:28px;">
+
+      <!-- 총괄 에이전트 -->
+      <div style="background:var(--surface);border-radius:16px;padding:28px 32px;box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.04);">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">👑</div>
+          <div>
+            <div style="font-size:17px;font-weight:700;color:var(--navy);">총괄 에이전트</div>
+            <div style="font-size:12px;color:var(--ink-muted);">프로젝트 관리 · 의사결정 지원 · 팀 간 조율</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div>
+            <div style="font-size:12px;font-weight:600;color:var(--accent);margin-bottom:6px;">핵심 업무</div>
+            <ul style="font-size:13px;color:var(--ink-light);line-height:1.8;list-style:none;">
+              <li>· 지시를 적절한 팀에 배분</li>
+              <li>· Gate 보고 검토 (체크리스트 + 질문 1개 이상)</li>
+              <li>· 팀 간 의존성·우선순위 조율</li>
+              <li>· 최종 요약 보고서 작성</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:600;color:var(--accent);margin-bottom:6px;">품질 기준</div>
+            <ul style="font-size:13px;color:var(--ink-light);line-height:1.8;list-style:none;">
+              <li>· 무비판 승인 금지 — 승인 근거 3줄 이상</li>
+              <li>· 팀장 보고 그대로 전달 금지</li>
+              <li>· 정합성 체인 검증 필수</li>
+              <li>· 독립 평가관 평가 결과 포함 보고</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 솔루션 개발팀장 -->
+      <div style="background:var(--surface);border-radius:16px;padding:28px 32px;box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.04);">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">🛠️</div>
+          <div>
+            <div style="font-size:17px;font-weight:700;color:var(--navy);">솔루션 개발팀장 <span style="font-size:12px;color:var(--accent);font-weight:600;">+ 9인 서브에이전트</span></div>
+            <div style="font-size:12px;color:var(--ink-muted);">AI 교육 솔루션 설계 · 개발 · 납품</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div>
+            <div style="font-size:12px;font-weight:600;color:var(--accent);margin-bottom:6px;">서브에이전트 구성</div>
+            <ul style="font-size:13px;color:var(--ink-light);line-height:1.8;list-style:none;">
+              <li>· <strong>솔루션 아키텍트</strong> — 서비스 청사진, 갭 체크</li>
+              <li>· <strong>HRD 전문가</strong> — 프레임워크 선정, Gate 검토</li>
+              <li>· <strong>평가설계 전문가</strong> — 채점 루브릭, 등급 경계, 공정성 감사</li>
+              <li>· <strong>시나리오 기획</strong> — 케이스 설계, 전략 브리핑</li>
+              <li>· <strong>상황 설계</strong> — scenarios.json, AI 반응 매트릭스</li>
+              <li>· <strong>프롬프트 엔지니어</strong> — 대화·평가 프롬프트</li>
+              <li>· <strong>백엔드 개발자</strong> — Express 서버 + API + DB</li>
+              <li>· <strong>QA 테스터</strong> — 정합성 검증, E2E 테스트</li>
+              <li>· <strong>보안 전문가</strong> — OWASP 보안 감사</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:600;color:var(--accent);margin-bottom:6px;">기술 스택 · 품질 기준</div>
+            <ul style="font-size:13px;color:var(--ink-light);line-height:1.8;list-style:none;">
+              <li>· Node.js + Express + SQLite + 바닐라 JS</li>
+              <li>· 3테마 (라이트/세피아/다크), 반응형</li>
+              <li>· LLM 멀티모델 (Claude + OpenAI)</li>
+              <li>· E2E 테스트 × 3회 통과 필수</li>
+              <li>· 보안 감사 Critical/High 0건</li>
+              <li>· AI 응답에 괄호 지문 절대 금지</li>
+              <li>· 정합성 체인: 프레임워크→시나리오→프롬프트→UI</li>
+            </ul>
+            <div style="font-size:12px;font-weight:600;color:var(--accent);margin-top:12px;margin-bottom:6px;">산출 솔루션 유형</div>
+            <ul style="font-size:13px;color:var(--ink-light);line-height:1.8;list-style:none;">
+              <li>· AI 롤플레잉 (채팅 기반 면담/코칭 시뮬레이션)</li>
+              <li>· AI 인바스켓 (이메일 기반 의사결정 시뮬레이션)</li>
+              <li>· AI 진단 프로그램 (사전/사후 역량 측정)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 리서치팀장 -->
+      <div style="background:var(--surface);border-radius:16px;padding:28px 32px;box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.04);">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:var(--emerald);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">🔍</div>
+          <div>
+            <div style="font-size:17px;font-weight:700;color:var(--navy);">리서치팀장 <span style="font-size:12px;color:var(--emerald);font-weight:600;">+ 6인 서브에이전트</span></div>
+            <div style="font-size:12px;color:var(--ink-muted);">HRD 리서치 · 자료 수집 · 분석 · 검증</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div>
+            <div style="font-size:12px;font-weight:600;color:var(--emerald);margin-bottom:6px;">서브에이전트 구성</div>
+            <ul style="font-size:13px;color:var(--ink-light);line-height:1.8;list-style:none;">
+              <li>· <strong>학술 리서처</strong> — 논문, 프레임워크, 이론 조사</li>
+              <li>· <strong>시장 분석가</strong> — 시장 규모, 성장률, 투자 동향</li>
+              <li>· <strong>경쟁사 분석가</strong> — 제품·가격·기능 비교</li>
+              <li>· <strong>트렌드 워처</strong> — 글로벌/한국 HRD 트렌드</li>
+              <li>· <strong>데이터 검증관</strong> — 출처 교차 검증, 신뢰도 판정</li>
+              <li>· <strong>자료 편집관</strong> — 포맷팅, 인덱스 관리, 아카이빙</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:600;color:var(--emerald);margin-bottom:6px;">리서치 기준</div>
+            <ul style="font-size:13px;color:var(--ink-light);line-height:1.8;list-style:none;">
+              <li>· 모든 수치에 출처 + 연도 필수</li>
+              <li>· 핵심 수치 2개 이상 소스 교차 검증</li>
+              <li>· 한국 맥락 자료 1건 이상 포함</li>
+              <li>· 3년+ 구 데이터 경고 표시</li>
+              <li>· 신뢰도 4등급 체계 (A:학술 ~ D:미확인)</li>
+              <li>· "~인 것 같습니다" 금지 → 출처 기반 서술</li>
+            </ul>
+            <div style="font-size:12px;font-weight:600;color:var(--emerald);margin-top:12px;margin-bottom:6px;">주력 리서치 도메인</div>
+            <ul style="font-size:13px;color:var(--ink-light);line-height:1.8;list-style:none;">
+              <li>· HRD 이론/프레임워크 (SBI, GROW, Lominger 등)</li>
+              <li>· 기업교육 시장 · AI 교육 기술 동향</li>
+              <li>· 역량 평가 (AC, BEI, 360도 피드백)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 제안서팀장 -->
+      <div style="background:var(--surface);border-radius:16px;padding:28px 32px;box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.04);">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:var(--amber);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">📄</div>
+          <div>
+            <div style="font-size:17px;font-weight:700;color:var(--navy);">제안서팀장 <span style="font-size:12px;color:var(--amber);font-weight:600;">+ 6인 서브에이전트</span></div>
+            <div style="font-size:12px;color:var(--ink-muted);">HRD 제안서 자동 생성 · PPTX 출력</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div>
+            <div style="font-size:12px;font-weight:600;color:var(--amber);margin-bottom:6px;">서브에이전트 구성</div>
+            <ul style="font-size:13px;color:var(--ink-light);line-height:1.8;list-style:none;">
+              <li>· <strong>제안서 아키텍트</strong> — RFP 분석, 파이프라인 설계</li>
+              <li>· <strong>HRD 콘텐츠 전문가</strong> — 커리큘럼 설계, 콘텐츠 템플릿</li>
+              <li>· <strong>프롬프트 엔지니어</strong> — LLM 콘텐츠 생성 프롬프트</li>
+              <li>· <strong>PPTX 디자이너</strong> — 슬라이드 레이아웃, 테마</li>
+              <li>· <strong>풀스택 개발자</strong> — 서버 + UI + RAG 연동</li>
+              <li>· <strong>QA 테스터</strong> — 생성 품질, PPTX 호환성 검증</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:600;color:var(--amber);margin-bottom:6px;">핵심 기능</div>
+            <ul style="font-size:13px;color:var(--ink-light);line-height:1.8;list-style:none;">
+              <li>· RFP 업로드 → 자동 분석 → 요구사항 추출</li>
+              <li>· 기존 제안서 DB 기반 콘텐츠 매칭</li>
+              <li>· LLM으로 커리큘럼·과정 설명 자동 생성</li>
+              <li>· PPTX 템플릿 기반 슬라이드 자동 생성</li>
+              <li>· 커리큘럼 시각화 위젯 (시간대별 모듈 배치)</li>
+            </ul>
+            <div style="font-size:12px;font-weight:600;color:var(--amber);margin-top:12px;margin-bottom:6px;">파이프라인</div>
+            <ul style="font-size:13px;color:var(--ink-light);line-height:1.8;list-style:none;">
+              <li>· Phase A: 기반 구축 (DB, API)</li>
+              <li>· Phase B: 콘텐츠 엔진 (파싱, 매칭, 생성)</li>
+              <li>· Phase C: PPTX 생성 엔진</li>
+              <li>· Phase D: UI 통합 · Phase E: 최적화</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 독립 평가관 -->
+      <div style="background:var(--surface);border-radius:16px;padding:28px 32px;box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.04);">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:var(--violet);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">⚖️</div>
+          <div>
+            <div style="font-size:17px;font-weight:700;color:var(--navy);">독립 평가관</div>
+            <div style="font-size:12px;color:var(--ink-muted);">하네스 엔지니어링 · Generator-Evaluator 분리</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div>
+            <div style="font-size:12px;font-weight:600;color:var(--violet);margin-bottom:6px;">평가 프로세스</div>
+            <ul style="font-size:13px;color:var(--ink-light);line-height:1.8;list-style:none;">
+              <li>· 작업 전 팀장과 합의서 작성 (단계·기준 확정)</li>
+              <li>· 산출물 파일을 직접 읽고 독립 검토</li>
+              <li>· <strong>코드 산출물은 OpenAI Codex로 보조 검증</strong> (자동 코드 리뷰)</li>
+              <li>· 항목별 점수 + 구체적 근거 채점표 작성</li>
+              <li>· 80+ 통과 / 60~79 수정 / 60 미만 반려</li>
+              <li>· 수정 후 재제출 시 재평가 (통과까지 반복)</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:600;color:var(--violet);margin-bottom:6px;">설계 원리</div>
+            <ul style="font-size:13px;color:var(--ink-light);line-height:1.8;list-style:none;">
+              <li>· <strong>AI 자기 평가 편향 방지</strong> — 만든 AI와 평가하는 AI를 분리</li>
+              <li>· 팀장의 자기 평가는 참고만, 신뢰하지 않음</li>
+              <li>· 합의된 기준으로만 평가 (기습 반려 금지)</li>
+              <li>· 순서 꼬임 감시 (합의서/평가/Gate/컨펌)</li>
+              <li>· <strong>Codex 연동</strong> — 코드 산출물은 /codex:review로 자동 리뷰 + /codex:adversarial-review로 비판적 검증</li>
+            </ul>
+            <div style="font-size:12px;font-weight:600;color:var(--violet);margin-top:12px;margin-bottom:6px;">팀별 평가 항목 예시</div>
+            <ul style="font-size:13px;color:var(--ink-light);line-height:1.8;list-style:none;">
+              <li>· 솔루션: 프레임워크 근거, 정합성, E2E 테스트, 보안, <strong>Codex 코드 리뷰</strong></li>
+              <li>· 리서치: 출처 신뢰도, 교차 검증, 시사점 도출</li>
+              <li>· 제안서: RFP 분석 정확도, PPTX 품질, 환각 0건</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- UI/UX 디자이너 -->
+      <div style="background:var(--surface);border-radius:16px;padding:28px 32px;box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.04);">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:#EC4899;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">🎨</div>
+          <div>
+            <div style="font-size:17px;font-weight:700;color:var(--navy);">UI/UX 디자이너</div>
+            <div style="font-size:12px;color:var(--ink-muted);">UI 설계 · CSS 디자인 시스템 · 테마 · 반응형</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div>
+            <div style="font-size:12px;font-weight:600;color:#EC4899;margin-bottom:6px;">핵심 업무</div>
+            <ul style="font-size:13px;color:var(--ink-light);line-height:1.8;list-style:none;">
+              <li>· <strong>UI/UX 설계·구현</strong> — 페이지 레이아웃, 인터랙션</li>
+              <li>· <strong>CSS 디자인 시스템</strong> — design-system.css, CSS 변수</li>
+              <li>· <strong>3테마 지원</strong> — 라이트/세피아/다크 런타임 전환</li>
+              <li>· <strong>반응형·접근성</strong> — 모바일 대응, WAI-ARIA</li>
+              <li>· <strong>카리나 백엔드와 병렬 개발</strong> — Phase 2에서 동시 진행</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:600;color:#EC4899;margin-bottom:6px;">캐릭터 특성</div>
+            <ul style="font-size:13px;color:var(--ink-light);line-height:1.8;list-style:none;">
+              <li>· 솔직한 투머치토커, 자기비하 유머</li>
+              <li>· 게으른 척 하면서 일은 확실히 함</li>
+              <li>· 디테일에 예민 — 1px, 색상 코드까지 집착</li>
+              <li>· 솔루션-개발 채널에서 활동</li>
+            </ul>
+            <div style="font-size:12px;font-weight:600;color:#EC4899;margin-top:12px;margin-bottom:6px;">평가 체계</div>
+            <ul style="font-size:13px;color:var(--ink-light);line-height:1.8;list-style:none;">
+              <li>· 기술 검증: 독립 평가관 (코드 품질, 반응형)</li>
+              <li>· 디자인 미학: 총괄 직접 검토</li>
+              <li>· 합의: 총괄 에이전트와 합의 후 작업</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px;">
+      <div class="prompt-example" style="margin:0;">
+        <div class="prompt-label">🔍 리서치팀에 조사 요청</div>
+        <div class="prompt-text"><span class="comment"># 조사 주제</span>
+2026년 <span class="highlight">MZ세대 리더십 교육 트렌드</span>
+
+<span class="comment"># 범위</span>
+- 학술: 최신 리더십 이론 (서번트, 코칭 등)
+- 시장: 국내 MZ 리더십 교육 시장 규모
+- 경쟁사: 주요 업체 프로그램 비교
+
+<span class="comment"># 산출물</span>
+리서치 브리핑 (1~2페이지), 출처 A/B등급</div>
+      </div>
+      <div class="prompt-example" style="margin:0;">
+        <div class="prompt-label">📄 제안서팀에 제안서 요청</div>
+        <div class="prompt-text"><span class="comment"># RFP 정보</span>
+첨부 파일: <span class="highlight">코스콤 2026 사내교육 RFP</span>
+
+<span class="comment"># 제안 과정</span>
+- 직책자 역량강화 (4H)
+- 신입사원 온보딩 (8H)
+- 퇴직예정자 전환교육 (2H)
+
+<span class="comment"># 산출물</span>
+과정별 커리큘럼 + 제안서 PPTX 초안</div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-top:24px;">
+      <strong>핵심:</strong> 각 에이전트에 <strong>전문 영역 · 품질 기준 · 평가 체계</strong>를 설정하면
+      "대충 만들어도 통과되는" 상황이 구조적으로 불가능해집니다.
+      독립 평가관이 합의된 기준으로 채점하기 때문에, 모든 산출물이 일정 수준 이상을 보장합니다.
+    </div>
+  </div>
+
+  <!-- 작업 플로우 -->
+  <div class="detail-block" style="padding:48px 36px;">
+    <div class="detail-badge" style="background:var(--accent-soft);color:var(--accent);">⚙️ 작업 플로우</div>
+    <h3>AI 에이전트 팀은 이렇게 일합니다</h3>
+    <p class="detail-desc">지시 수신부터 최종 납품까지, 모든 단계에 품질 게이트가 걸려 있습니다.</p>
+
+    <!-- 메인 플로우 -->
+    <div style="margin-top:32px;display:flex;flex-direction:column;gap:0;position:relative;">
+
+      <!-- 수직 라인 -->
+      <div style="position:absolute;left:28px;top:32px;bottom:32px;width:3px;background:linear-gradient(to bottom,var(--accent),var(--violet),var(--emerald));border-radius:2px;"></div>
+
+      <!-- Step 1: 지시 수신 -->
+      <div style="display:flex;gap:24px;align-items:flex-start;padding:16px 0;position:relative;">
+        <div style="width:56px;height:56px;border-radius:50%;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;z-index:1;box-shadow:var(--shadow-sm);">📋</div>
+        <div style="flex:1;padding-top:6px;">
+          <div style="font-size:17px;font-weight:700;color:var(--navy);">Step 1. 지시 수신</div>
+          <div style="font-size:14px;color:var(--ink-light);line-height:1.6;margin-top:4px;">사장실에서 지시 → 총괄 에이전트가 접수 → 해당 팀장 채널에서 대화로 전달</div>
+          <div style="display:inline-flex;gap:6px;margin-top:8px;">
+            <span style="font-size:11px;padding:3px 10px;border-radius:6px;background:var(--accent-soft);color:var(--accent);font-weight:600;">총괄</span>
+            <span style="font-size:11px;padding:3px 10px;border-radius:6px;background:var(--surface-alt);color:var(--ink-muted);">디스코드 채널</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: 사전 리서치 -->
+      <div style="display:flex;gap:24px;align-items:flex-start;padding:16px 0;position:relative;">
+        <div style="width:56px;height:56px;border-radius:50%;background:var(--emerald-soft);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;z-index:1;box-shadow:var(--shadow-sm);">🔍</div>
+        <div style="flex:1;padding-top:6px;">
+          <div style="font-size:17px;font-weight:700;color:var(--navy);">Step 2. 사전 리서치 (필요 시)</div>
+          <div style="font-size:14px;color:var(--ink-light);line-height:1.6;margin-top:4px;">리서치가 필요한 프로젝트면, 리서치팀이 먼저 조사 수행 → 결과 공유 후 팀장 착수</div>
+          <div style="display:inline-flex;gap:6px;margin-top:8px;">
+            <span style="font-size:11px;padding:3px 10px;border-radius:6px;background:var(--emerald-soft);color:var(--emerald);font-weight:600;">리서치팀</span>
+            <span style="font-size:11px;padding:3px 10px;border-radius:6px;background:var(--surface-alt);color:var(--ink-muted);">학술·시장·경쟁사 조사</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: 작업 합의 -->
+      <div style="display:flex;gap:24px;align-items:flex-start;padding:16px 0;position:relative;">
+        <div style="width:56px;height:56px;border-radius:50%;background:var(--violet-soft);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;z-index:1;box-shadow:var(--shadow-sm);">🤝</div>
+        <div style="flex:1;padding-top:6px;">
+          <div style="font-size:17px;font-weight:700;color:var(--navy);">Step 3. 작업 합의서 작성</div>
+          <div style="font-size:14px;color:var(--ink-light);line-height:1.6;margin-top:4px;">팀장 + 독립 평가관이 채널에서 합의: 작업 단계, 단계별 산출물, 완료 기준, 평가 항목을 확정</div>
+          <div style="display:inline-flex;gap:6px;margin-top:8px;">
+            <span style="font-size:11px;padding:3px 10px;border-radius:6px;background:var(--accent-soft);color:var(--accent);font-weight:600;">팀장</span>
+            <span style="font-size:11px;padding:3px 10px;border-radius:6px;background:var(--violet-soft);color:var(--violet);font-weight:600;">평가관</span>
+            <span style="font-size:11px;padding:3px 10px;border-radius:6px;background:var(--coral-soft);color:var(--coral);font-weight:600;">⚠️ 합의 전 착수 금지</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4: 단계별 작업 -->
+      <div style="display:flex;gap:24px;align-items:flex-start;padding:16px 0;position:relative;">
+        <div style="width:56px;height:56px;border-radius:50%;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;z-index:1;box-shadow:var(--shadow-sm);">⚙️</div>
+        <div style="flex:1;padding-top:6px;">
+          <div style="font-size:17px;font-weight:700;color:var(--navy);">Step 4. 단계별 작업 수행</div>
+          <div style="font-size:14px;color:var(--ink-light);line-height:1.6;margin-top:4px;">팀장이 서브에이전트에게 작업 배분 → 30분마다 채널에 진행 현황 보고 → 산출물을 파일로 저장</div>
+          <div style="display:inline-flex;gap:6px;margin-top:8px;">
+            <span style="font-size:11px;padding:3px 10px;border-radius:6px;background:var(--accent-soft);color:var(--accent);font-weight:600;">팀장 + 서브에이전트</span>
+            <span style="font-size:11px;padding:3px 10px;border-radius:6px;background:var(--surface-alt);color:var(--ink-muted);">산출물 파일 저장</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5: 독립 평가 -->
+      <div style="display:flex;gap:24px;align-items:flex-start;padding:16px 0;position:relative;">
+        <div style="width:56px;height:56px;border-radius:50%;background:var(--violet-soft);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;z-index:1;box-shadow:var(--shadow-sm);">⚖️</div>
+        <div style="flex:1;padding-top:6px;">
+          <div style="font-size:17px;font-weight:700;color:var(--navy);">Step 5. 독립 평가 (Gate)</div>
+          <div style="font-size:14px;color:var(--ink-light);line-height:1.6;margin-top:4px;">평가관이 합의된 기준으로 산출물을 채점 → 항목별 점수 + 구체적 근거 제시</div>
+          <!-- 판정 박스 -->
+          <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;">
+            <div style="background:var(--emerald-soft);border-radius:8px;padding:8px 14px;font-size:13px;">
+              <span style="font-weight:700;color:var(--emerald);">✅ 80점+</span>
+              <span style="color:var(--ink-light);margin-left:4px;">통과 → 다음 단계</span>
+            </div>
+            <div style="background:var(--amber-soft);border-radius:8px;padding:8px 14px;font-size:13px;">
+              <span style="font-weight:700;color:var(--amber);">⚠️ 60~79</span>
+              <span style="color:var(--ink-light);margin-left:4px;">수정 후 재평가</span>
+            </div>
+            <div style="background:var(--coral-soft);border-radius:8px;padding:8px 14px;font-size:13px;">
+              <span style="font-weight:700;color:var(--coral);">❌ 60 미만</span>
+              <span style="color:var(--ink-light);margin-left:4px;">반려 → 재작업</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 6: 총괄 검토 -->
+      <div style="display:flex;gap:24px;align-items:flex-start;padding:16px 0;position:relative;">
+        <div style="width:56px;height:56px;border-radius:50%;background:var(--amber-soft);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;z-index:1;box-shadow:var(--shadow-sm);">📊</div>
+        <div style="flex:1;padding-top:6px;">
+          <div style="font-size:17px;font-weight:700;color:var(--navy);">Step 6. 총괄 검토</div>
+          <div style="font-size:14px;color:var(--ink-light);line-height:1.6;margin-top:4px;">총괄 에이전트가 검토 체크리스트 작성 + 최소 1개 질문/개선점 제시 → 승인 근거 3줄 이상 필수</div>
+          <div style="display:inline-flex;gap:6px;margin-top:8px;">
+            <span style="font-size:11px;padding:3px 10px;border-radius:6px;background:var(--amber-soft);color:var(--amber);font-weight:600;">총괄</span>
+            <span style="font-size:11px;padding:3px 10px;border-radius:6px;background:var(--coral-soft);color:var(--coral);font-weight:600;">⚠️ 무비판 승인 금지</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 7: 최종 컨펌 -->
+      <div style="display:flex;gap:24px;align-items:flex-start;padding:16px 0;position:relative;">
+        <div style="width:56px;height:56px;border-radius:50%;background:var(--emerald-soft);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;z-index:1;box-shadow:var(--shadow-sm);">✅</div>
+        <div style="flex:1;padding-top:6px;">
+          <div style="font-size:17px;font-weight:700;color:var(--navy);">Step 7. 최종 컨펌 → 다음 Phase</div>
+          <div style="font-size:14px;color:var(--ink-light);line-height:1.6;margin-top:4px;">총괄이 사장실에서 최종 보고 → 컨펌 후 다음 Phase 진행. Step 4~7을 Phase마다 반복.</div>
+          <div style="display:inline-flex;gap:6px;margin-top:8px;">
+            <span style="font-size:11px;padding:3px 10px;border-radius:6px;background:var(--emerald-soft);color:var(--emerald);font-weight:600;">컨펌 완료</span>
+            <span style="font-size:11px;padding:3px 10px;border-radius:6px;background:var(--surface-alt);color:var(--ink-muted);">🔄 Phase마다 반복</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="prompt-example" style="margin-top:24px;">
+      <div class="prompt-label">⚖️ 독립 평가관에게 Gate 평가 요청</div>
+      <div class="prompt-text"><span class="comment"># 평가 요청</span>
+<span class="highlight">신입사원 온보딩 롤플레잉</span> 프로젝트 Gate 1 평가해줘.
+
+<span class="comment"># 산출물 위치</span>
+shared/projects/onboarding-roleplay/
+- framework-spec.md (프레임워크 설계)
+- assessment-rubric.md (평가 루브릭)
+- scenario-spec.md (시나리오 설계)
+
+<span class="comment"># 합의 기준</span>
+작업 합의서 참고해서 합의된 항목별로 채점해줘.
+80점 이상이면 Phase 2 진행.</div>
+    </div>
+
+    <!-- 꼬임 방지 규칙 -->
+    <div style="margin-top:32px;background:var(--navy);border-radius:12px;padding:24px 28px;color:#fff;">
+      <div style="font-size:14px;font-weight:700;margin-bottom:12px;">🔒 순서 꼬임 방지 5대 규칙</div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;">
+        <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:10px;text-align:center;">
+          <div style="font-size:18px;margin-bottom:4px;">⚖️</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.7);line-height:1.4;">평가 통과 없이<br>다음 단계 금지</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:10px;text-align:center;">
+          <div style="font-size:18px;margin-bottom:4px;">🤝</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.7);line-height:1.4;">합의서 없이<br>작업 시작 금지</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:10px;text-align:center;">
+          <div style="font-size:18px;margin-bottom:4px;">📊</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.7);line-height:1.4;">총괄 검토 없이<br>Gate 통과 금지</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:10px;text-align:center;">
+          <div style="font-size:18px;margin-bottom:4px;">✅</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.7);line-height:1.4;">컨펌 없이<br>다음 Phase 금지</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:10px;text-align:center;">
+          <div style="font-size:18px;margin-bottom:4px;">🔍</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.7);line-height:1.4;">리서치 먼저<br>→ 결과 후 착수</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PART 6. 교육 운영팀 활용 (15분)              -->
+<!-- ═══════════════════════════════════════════ -->
+<section id="ops">
+<div class="container">
+  <div class="section-num">06</div>
+  <div class="section-label">For Ops Teams</div>
+  <h2 class="section-title">교육 운영팀이 바로 써볼 수 있는 것들</h2>
+  <p class="section-desc">
+    교육을 기획하고 운영하는 과정에서 반복되는 작업들이 있습니다.
+    AI가 대신할 수 없는 판단은 사람이 하되, 초안 작성이나 정리 작업은 AI에게 맡길 수 있습니다.
+  </p>
+
+  <div class="cc-feature-grid">
+    <div class="cc-feature">
+      <div class="cc-icon">✉️</div>
+      <h4>교육 안내문·메일 작성</h4>
+      <p>과정명, 일시, 대상, 장소를 알려주면 안내 메일 초안을 만들어줍니다. 사전 안내, 리마인더, 사후 안내 등 톤만 바꿔서 재활용 가능.</p>
+    </div>
+    <div class="cc-feature">
+      <div class="cc-icon">📊</div>
+      <h4>설문 결과 요약·분석</h4>
+      <p>만족도 설문 원본을 붙여넣으면 지표 요약, 자유 응답 분류, 개선점 정리를 해줍니다. 결과 보고서 초안으로 바로 활용.</p>
+    </div>
+    <div class="cc-feature">
+      <div class="cc-icon">📝</div>
+      <h4>커리큘럼·과정 설명 작성</h4>
+      <p>교육 목표, 대상, 시간만 알려주면 과정 소개문, 모듈 구성안을 만들어줍니다. 용도별로 톤 조절 가능.</p>
+    </div>
+    <div class="cc-feature">
+      <div class="cc-icon">🎤</div>
+      <h4>강사 브리핑 자료 준비</h4>
+      <p>교육 배경, 수강생 특성, 고객사 요구사항을 정리해서 브리핑 문서 초안 생성. 템플릿처럼 활용.</p>
+    </div>
+    <div class="cc-feature">
+      <div class="cc-icon">📋</div>
+      <h4>교육 결과 보고서 초안</h4>
+      <p>참석 인원, 만족도, 피드백, 운영 이슈를 주면 보고서 초안 생성. 정해진 양식에 맞춰 채워넣기도 가능.</p>
+    </div>
+    <div class="cc-feature">
+      <div class="cc-icon">💡</div>
+      <h4>기획 아이디어 브레인스토밍</h4>
+      <p>"MZ세대 리더십 교육 아이디어" 같은 주제를 주면 모듈 구성, 교수법, 참고 사례를 함께 고민해줍니다.</p>
+    </div>
+  </div>
+
+  <!-- 운영팀 프롬프트 예시 -->
+  <h3 style="font-size:20px;font-weight:700;color:var(--navy);margin-top:48px;margin-bottom:16px;">운영팀 실전 프롬프트 예시</h3>
+
+  <div class="prompt-example">
+    <div class="prompt-label">✉️ 교육 안내 메일</div>
+    <div class="prompt-text"><span class="comment"># 교육 정보</span>
+과정명: 2026 신입사원 온보딩 교육
+일시: 4월 7일(월) 09:00~17:00 / 장소: 본사 12층 대강의실
+대상: 신입사원 20명 / 준비물: 노트북, 명함
+
+<span class="comment"># 요청</span>
+위 정보로 <span class="highlight">사전 안내 메일</span>을 작성해줘.
+친근하지만 정보 빠짐없이. 하단에 문의처도 넣어줘.</div>
+  </div>
+
+  <div class="prompt-example" style="margin-top:12px;">
+    <div class="prompt-label">📊 설문 결과 정리</div>
+    <div class="prompt-text"><span class="comment"># 상황</span>
+첨부한 엑셀은 "직책자 AI 역량강화" 만족도 설문 결과야.
+
+<span class="comment"># 요청</span>
+1. 항목별 평균 점수와 <span class="highlight">상위/하위 3개 항목</span> 정리
+2. 자유 응답에서 <span class="highlight">긍정·부정·개선 요청</span>으로 분류
+3. 전체 요약 3줄 (보고서에 바로 쓸 수 있게)</div>
+  </div>
+
+  <div class="prompt-example" style="margin-top:12px;">
+    <div class="prompt-label">🎤 강사 브리핑 문서</div>
+    <div class="prompt-text"><span class="comment"># 교육 정보</span>
+과정: 유한양행 신임 이사대우 승진자 교육 / 4H / 대상 15명
+
+<span class="comment"># 고객사 요구</span>
+- '경영진' 표현 대신 '리더'로 톤 조정
+- 실습·토론 비중 높이기
+- AI 관련 세션은 빼고 리더십 전환에 집중
+
+위 내용으로 <span class="highlight">강사 브리핑 문서</span> 초안을 만들어줘.</div>
+  </div>
+
+  <div class="prompt-example" style="margin-top:12px;">
+    <div class="prompt-label">📝 커리큘럼 설계</div>
+    <div class="prompt-text"><span class="comment"># 교육 정보</span>
+과정: 코스콤 차세대 리더 양성 과정
+대상: 과장~차장급 30명 / 시간: 8시간 (1일)
+형태: 대면 / 장소: 코스콤 연수원
+
+<span class="comment"># 요청</span>
+위 조건으로 <span class="highlight">커리큘럼을 설계</span>해줘.
+- 시간대별 모듈 구성 (4열 표: 시간 / 모듈명 / 세부내용 / 교육방식)
+- 각 모듈에 실습 또는 토의 활동 1개 이상 포함
+- 오전은 이론+사례, 오후는 실습+적용 구조로</div>
+  </div>
+
+  <div class="prompt-example" style="margin-top:12px;">
+    <div class="prompt-label">📋 결과 보고서 초안</div>
+    <div class="prompt-text"><span class="comment"># 상황</span>
+첨부 파일은 "신입사원 온보딩 교육" 운영 결과야.
+- 참석: 20명 중 18명 (출석률 90%)
+- 만족도: 4.6/5.0
+- 주요 피드백: 실습 시간 부족, 선배 멘토링 세션 좋았음
+
+<span class="comment"># 요청</span>
+위 내용으로 <span class="highlight">교육 결과 보고서 초안</span>을 만들어줘.
+- 양식: 개요 / 운영 현황 / 만족도 분석 / 주요 피드백 / 개선 방안
+- 표와 수치 중심으로, ~입니다 체</div>
+  </div>
+
+  <div class="prompt-example" style="margin-top:12px;">
+    <div class="prompt-label">💡 기획 브레인스토밍</div>
+    <div class="prompt-text"><span class="comment"># 상황</span>
+우리 팀에서 "<span class="highlight">MZ세대 팀장 리더십</span>" 주제로 신규 과정을 기획하려고 해.
+
+<span class="comment"># 조건</span>
+- 대상: 30대 초중반 신임 팀장
+- 시간: 4시간 (반일)
+- 차별점이 있어야 함 (기존 리더십 교육과 다르게)
+
+<span class="comment"># 요청</span>
+1. 과정 컨셉 3가지 제안 (각각 한 줄 요약 + 핵심 차별점)
+2. 가장 추천하는 1개를 골라서 모듈 구성안까지
+3. 참고할 만한 교육 트렌드도 같이 정리</div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PART 7. 도구 & 세팅 (25분)                   -->
+<!-- ═══════════════════════════════════════════ -->
+<section id="tools">
+<div class="container">
+  <div class="section-num">07</div>
+  <div class="section-label">Tools & Settings</div>
+  <h2 class="section-title">도구와 세팅 가이드</h2>
+  <p class="section-desc">
+    AI를 더 잘 쓰려면 도구 선택과 초기 세팅이 중요합니다.
+    자기 업무에 맞는 도구 하나를 제대로 세팅하는 것이 핵심입니다.
+  </p>
+
+  <!-- 3가지 도구 비교 -->
+  <h3 style="font-size:20px;font-weight:700;color:var(--navy);margin-top:32px;margin-bottom:16px;">채팅 vs Cowork vs Code</h3>
+
+  <div class="cc-vs">
+    <div class="cc-vs-card" style="background:var(--accent-soft);">
+      <h4 style="color:var(--accent);">💬 Claude 채팅</h4>
+      <ul>
+        <li>웹 브라우저에서 대화</li>
+        <li>파일을 첨부해서 질문</li>
+        <li>결과를 복사해서 붙여넣기</li>
+        <li>누구나 바로 사용 가능</li>
+        <li>무료/유료 모두 가능</li>
+      </ul>
+    </div>
+    <div class="cc-vs-card" style="background:var(--emerald-soft);">
+      <h4 style="color:var(--emerald);">🖥️ Cowork</h4>
+      <ul>
+        <li>데스크톱 앱에서 실행 (Mac/Windows)</li>
+        <li>내 컴퓨터 폴더에 직접 접근·편집</li>
+        <li>파일 정리·생성·리팩토링을 알아서</li>
+        <li>터미널 없이 바로 사용 가능</li>
+        <li>커넥터 연동 (Slack, Canva 등)</li>
+      </ul>
+    </div>
+    <div class="cc-vs-card" style="background:var(--violet-soft);">
+      <h4 style="color:var(--violet);">⌨️ Code</h4>
+      <ul>
+        <li>터미널에서 실행</li>
+        <li>코드 실행·빌드까지 가능</li>
+        <li>에이전트 팀 구성 가능</li>
+        <li>개발·대규모 프로젝트에 적합</li>
+        <li>Max 플랜 또는 API 키 필요</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:20px;">
+    <strong>비개발 직군 추천:</strong> <strong>채팅</strong>부터 시작하세요.
+    파일 작업이 많다면 <strong>Cowork</strong>를 써보세요 — 데스크톱 앱에서 바로 쓸 수 있고 터미널이 필요 없습니다.
+    Code는 개발 작업이나 대규모 프로젝트를 다룰 때 씁니다.
+  </div>
+
+  <!-- 환경설정 -->
+  <h3 style="font-size:20px;font-weight:700;color:var(--navy);margin-top:56px;margin-bottom:8px;">⚙️ 사용자 환경설정 — "나는 이런 사람이야"</h3>
+  <p style="font-size:15px;color:var(--ink-light);margin-bottom:20px;">
+    Claude에게 내 업무 맥락을 미리 알려두면, 매번 "나는 교육 운영팀이고…"를 반복할 필요가 없습니다.
+    한 번 설정하면 모든 대화에서 자동 반영됩니다.
+  </p>
+
+  <div class="prompt-example">
+    <div class="prompt-label">⚙️ 환경설정 예시 (설정 → 사용자 환경설정에 입력)</div>
+    <div class="prompt-text"><span class="comment"># 내 역할</span>
+나는 휴넷 리더스아카데미팀 소속이야.
+기업 대상 집합교육(리더십, AI, 직무역량)을 기획·운영하고 있어.
+
+<span class="comment"># 주요 업무</span>
+- 교육 제안서 작성, 커리큘럼 설계
+- 강사 섭외 및 브리핑
+- 교육 운영 및 결과 보고
+
+<span class="comment"># 답변 스타일</span>
+- 한국어로 답변, 비즈니스 톤, 과하지 않게
+- 실무에서 바로 쓸 수 있는 수준으로</div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:16px;">
+    <strong>설정 방법:</strong> claude.ai → 프로필 아이콘 → 설정 → 사용자 환경설정에 자기 상황에 맞게 입력.
+  </div>
+
+  <!-- 프로젝트 -->
+  <h3 style="font-size:20px;font-weight:700;color:var(--navy);margin-top:56px;margin-bottom:8px;">📁 프로젝트 — "이 업무 전용 공간"</h3>
+  <p style="font-size:15px;color:var(--ink-light);margin-bottom:20px;">
+    참고 문서와 지침을 미리 세팅해두고 반복적으로 대화하는 기능입니다.
+    "교육 제안서 작성" 프로젝트를 만들어두면 매번 자료를 첨부할 필요 없이 바로 작업할 수 있습니다.
+  </p>
+
+  <div class="cc-feature-grid">
+    <div class="cc-feature">
+      <div class="cc-icon">📎</div>
+      <h4>참고 문서 업로드</h4>
+      <p>PDF, Word 등을 올려두면 해당 프로젝트의 모든 대화에서 자동 참조.</p>
+    </div>
+    <div class="cc-feature">
+      <div class="cc-icon">📋</div>
+      <h4>커스텀 지침 설정</h4>
+      <p>"휴넷 관점으로 작성", "커리큘럼은 4열 표로" 같은 지침을 세팅.</p>
+    </div>
+    <div class="cc-feature">
+      <div class="cc-icon">🔄</div>
+      <h4>반복 사용</h4>
+      <p>새 대화를 열어도 문서와 지침이 유지. "코스콤 제안서" 같은 프로젝트를 만들면 됩니다.</p>
+    </div>
+    <div class="cc-feature">
+      <div class="cc-icon">👥</div>
+      <h4>팀원 공유</h4>
+      <p>Team 플랜에서는 팀원과 공유. 같은 참고 자료, 같은 지침으로 일관되게 작업.</p>
+    </div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:16px;">
+    <strong>만드는 법:</strong> 사이드바 → 프로젝트 → 새 프로젝트 → 지식 베이스에 문서 업로드 → 커스텀 지침 작성.
+    무료 플랜에서도 5개까지 가능.
+  </div>
+
+  <!-- 커넥터 -->
+  <h3 style="font-size:20px;font-weight:700;color:var(--navy);margin-top:56px;margin-bottom:8px;">🔗 커넥터 — 외부 도구 연결하기</h3>
+  <p style="font-size:15px;color:var(--ink-light);margin-bottom:20px;">
+    Canva, Gmail, Google Drive, Slack 등을 Claude에 연결하면 복사-붙여넣기 없이 직접 작업합니다.
+    설정에서 원하는 앱을 클릭하고 로그인하면 끝입니다.
+  </p>
+
+  <div class="tool-grid">
+    <div class="tool-card">
+      <div class="tool-icon" style="background:var(--amber-soft);color:var(--amber);">🎨</div>
+      <h4>Canva</h4>
+      <p class="tool-desc">교육 홍보물, 프레젠테이션, SNS 카드를 대화 안에서 바로 생성. 브랜드 키트 적용 가능.</p>
+      <span class="tool-use">디자인 제작</span>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon" style="background:var(--coral-soft);color:var(--coral);">📧</div>
+      <h4>Gmail</h4>
+      <p class="tool-desc">메일 검색, 스레드 요약, 답장 초안 작성. "이 고객사와 주고받은 메일 정리해줘"가 가능.</p>
+      <span class="tool-use">메일 관리</span>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon" style="background:var(--emerald-soft);color:var(--emerald);">📁</div>
+      <h4>Google Drive</h4>
+      <p class="tool-desc">드라이브 파일 검색·요약. "공유 폴더에서 작년 제안서 찾아서 요약해줘".</p>
+      <span class="tool-use">문서 검색</span>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon" style="background:var(--violet-soft);color:var(--violet);">💬</div>
+      <h4>Slack</h4>
+      <p class="tool-desc">채널·DM 검색, 스레드 요약. "이번 주 #교육운영 채널 논의 정리해줘".</p>
+      <span class="tool-use">커뮤니케이션</span>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon" style="background:var(--accent-soft);color:var(--accent);">📊</div>
+      <h4>Google Sheets</h4>
+      <p class="tool-desc">스프레드시트 데이터 분석, 수식 작성, 차트 생성. "이 데이터 정리해서 피벗 테이블로"가 가능.</p>
+      <span class="tool-use">데이터 분석</span>
+    </div>
+  </div>
+
+  <div class="prompt-example" style="margin-top:24px;">
+    <div class="prompt-label">🎨 Canva로 교육 홍보물 만들기</div>
+    <div class="prompt-text">Canva로 <span class="highlight">교육 과정 홍보 카드뉴스</span>를 만들어줘.
+
+과정명: 2026 리더를 위한 AI 활용 워크숍
+일시: 5월 12일(월) 09:00~17:00
+대상: 부서장·팀장급
+
+<span class="comment"># 디자인 조건</span>
+- 인스타그램 정사각형 사이즈
+- 우리 회사 브랜드 키트 적용
+- 깔끔하고 전문적인 톤</div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:16px;">
+    <strong>연결 방법:</strong> claude.ai → 프로필 → 설정 → 커넥터 → 앱 클릭 → 로그인. 한 번 연결하면 이후 자동.
+    처음에는 Canva, Gmail 정도만 연결해보세요.
+  </div>
+
+  <!-- 최근 추가된 기능 -->
+  <h3 style="font-size:20px;font-weight:700;color:var(--navy);margin-top:56px;margin-bottom:8px;">🆕 최근 추가된 기능</h3>
+  <p style="font-size:15px;color:var(--ink-light);margin-bottom:20px;">
+    2026년 3월 기준으로 새로 추가된 기능 중 실무에서 바로 쓸 만한 것들입니다.
+  </p>
+
+  <div class="cc-feature-grid">
+    <div class="cc-feature" style="border-top:3px solid var(--accent);">
+      <div class="cc-icon">🧠</div>
+      <h4>메모리</h4>
+      <p>
+        Claude가 대화 내용을 기억해서 다음 대화에 반영합니다.
+        "나는 리더스아카데미팀이야"를 한 번 말하면, 이후 새 대화에서도 알고 있습니다.
+        환경설정과 비슷하지만, 대화하면서 자연스럽게 쌓인다는 점이 다릅니다.
+        설정 → 기능에서 확인·편집·삭제할 수 있습니다.
+      </p>
+    </div>
+    <div class="cc-feature" style="border-top:3px solid var(--emerald);">
+      <div class="cc-icon">📊</div>
+      <h4>시각화</h4>
+      <p>
+        "이 데이터로 차트 만들어줘" 하면 대화 안에서 바로 인터랙티브 차트·다이어그램이 생성됩니다.
+        설문 결과를 막대 그래프로 보거나, 프로세스를 플로우차트로 그리거나, 비교 데이터를 테이블로 정리할 때 유용합니다.
+        별도 도구 없이 대화 중에 바로 나옵니다.
+      </p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PART 8. Cowork 심화 — CLAUDE.md & 스킬       -->
+<!-- ═══════════════════════════════════════════ -->
+<section id="cowork">
+<div class="container">
+  <div class="section-num">08</div>
+  <div class="section-label">Cowork Deep Dive</div>
+  <h2 class="section-title">Cowork 심화 — CLAUDE.md와 스킬</h2>
+  <p class="section-desc">
+    Cowork(또는 Code)에서 CLAUDE.md 파일과 스킬을 활용하면,
+    매번 같은 지시를 반복하지 않고도 <strong>나만의 AI 업무 파트너</strong>를 만들 수 있습니다.
+  </p>
+
+  <!-- CLAUDE.md 개념 -->
+  <div class="detail-block" style="margin-top:32px;">
+    <div class="detail-badge" style="background:var(--accent-soft);color:var(--accent);">📄 CLAUDE.md</div>
+    <h3>CLAUDE.md란?</h3>
+    <p class="detail-desc">
+      프로젝트 폴더에 CLAUDE.md 파일을 넣어두면, AI가 대화를 시작할 때마다 이 파일을 먼저 읽습니다.
+      "이 프로젝트는 이런 거고, 이런 규칙을 지켜야 해"를 미리 알려주는 <strong>영구 지침서</strong>입니다.
+    </p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px;">
+      <div>
+        <h4 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:12px;">환경설정 vs CLAUDE.md</h4>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="background:var(--surface-alt);border-radius:10px;padding:14px;">
+            <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:4px;">⚙️ 환경설정 (사용자 설정)</div>
+            <div style="font-size:13px;color:var(--ink-light);line-height:1.6;">
+              · 모든 대화에 공통 적용<br>
+              · "나는 교육 운영팀이야" 같은 범용 정보<br>
+              · 한 번 설정하면 어디서든 반영
+            </div>
+          </div>
+          <div style="background:var(--accent-soft);border-radius:10px;padding:14px;">
+            <div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:4px;">📄 CLAUDE.md (프로젝트 설정)</div>
+            <div style="font-size:13px;color:var(--ink-light);line-height:1.6;">
+              · 해당 폴더에서만 적용<br>
+              · "이 프로젝트는 이런 기술 스택이고, 이런 규칙이 있어" 같은 프로젝트별 정보<br>
+              · 팀원과 공유 가능
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:12px;">뭘 넣으면 되나요?</h4>
+        <div style="background:var(--surface-alt);border-radius:10px;padding:14px;">
+          <div style="font-size:13px;color:var(--ink-light);line-height:1.8;">
+            <strong style="color:var(--ink);">1. 프로젝트 개요</strong> — 이 프로젝트가 뭔지<br>
+            <strong style="color:var(--ink);">2. 역할 정의</strong> — AI가 어떤 역할을 해야 하는지<br>
+            <strong style="color:var(--ink);">3. 기술 스택</strong> — 사용하는 도구·기술<br>
+            <strong style="color:var(--ink);">4. 절대 규칙</strong> — 반드시 지켜야 할 것들<br>
+            <strong style="color:var(--ink);">5. 보고 방식</strong> — 결과물 형식·톤·구조<br>
+            <strong style="color:var(--ink);">6. 참고 자료</strong> — 폴더 구조, 기존 문서 위치
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLAUDE.md 예시 -->
+    <h4 style="font-size:15px;font-weight:700;color:var(--navy);margin-top:28px;margin-bottom:12px;">실전 예시 — 교육 제안서 프로젝트</h4>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="terminal-dot r"></div>
+        <div class="terminal-dot y"></div>
+        <div class="terminal-dot g"></div>
+        <span>CLAUDE.md</span>
+      </div>
+      <div class="terminal-body">
+<span class="accent"># 교육 제안서 자동 생성 프로젝트</span>
+
+<span class="output">## 역할</span>
+<span class="cmd">너는 HRD 교육 제안서 작성 전문가야.</span>
+<span class="cmd">RFP를 분석해서 고객 맞춤 커리큘럼과 제안서를 만든다.</span>
+
+<span class="output">## 규칙</span>
+<span class="cmd">- 휴넷 관점에서 작성 (우리가 교육을 제공하는 입장)</span>
+<span class="cmd">- 커리큘럼은 모듈명 / 세부내용 / 교육방식 / 시간 4열 표</span>
+<span class="cmd">- 모든 과정에 실습·토의 활동 1개 이상 포함</span>
+<span class="cmd">- 한국어, 비즈니스 톤, ~입니다 체</span>
+
+<span class="output">## 참고 자료 위치</span>
+<span class="cmd">- /references/past-proposals/ — 작년 제안서 모음</span>
+<span class="cmd">- /references/curriculum-db/ — 커리큘럼 DB</span>
+<span class="cmd">- /templates/ — PPT 템플릿</span>
+
+<span class="output">## 산출물 형식</span>
+<span class="cmd">- 커리큘럼: Word (과정별 개별 파일)</span>
+<span class="cmd">- 제안서: PPTX (템플릿 기반)</span>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top:16px;">
+      <strong>효과:</strong> 이 파일을 프로젝트 폴더에 넣어두면, 매번 "휴넷 관점으로 작성해줘", "4열 표로 해줘"를 반복하지 않아도 됩니다. 새 대화를 열어도 AI가 이 규칙을 자동으로 따릅니다.
+    </div>
+  </div>
+
+  <!-- CLAUDE.md 활용 팁 -->
+  <div class="detail-block">
+    <div class="detail-badge" style="background:var(--emerald-soft);color:var(--emerald);">💡 활용 팁</div>
+    <h3>CLAUDE.md 활용 시나리오</h3>
+
+    <div class="grid-3" style="margin-top:20px;">
+      <div style="background:var(--surface-alt);border-radius:12px;padding:20px;">
+        <div style="font-size:20px;margin-bottom:8px;">📋</div>
+        <div style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:6px;">제안서 작업 폴더</div>
+        <div style="font-size:13px;color:var(--ink-light);line-height:1.6;">고객사별 폴더에 CLAUDE.md를 넣고, 해당 고객의 특성·요구사항·과거 이력을 기록. 제안서 쓸 때마다 맥락을 알고 시작.</div>
+      </div>
+      <div style="background:var(--surface-alt);border-radius:12px;padding:20px;">
+        <div style="font-size:20px;margin-bottom:8px;">📊</div>
+        <div style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:6px;">운영 보고서 폴더</div>
+        <div style="font-size:13px;color:var(--ink-light);line-height:1.6;">보고서 양식·작성 규칙·톤을 CLAUDE.md에 정의. "보고서 써줘"만 해도 우리 양식에 맞는 결과물.</div>
+      </div>
+      <div style="background:var(--surface-alt);border-radius:12px;padding:20px;">
+        <div style="font-size:20px;margin-bottom:8px;">🎓</div>
+        <div style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:6px;">교육 기획 폴더</div>
+        <div style="font-size:13px;color:var(--ink-light);line-height:1.6;">교육 과정 설계 원칙·시간별 모듈 기준·활동 유형을 정의. 커리큘럼 설계 시 일관된 품질 보장.</div>
+      </div>
+    </div>
+
+    <div class="prompt-example" style="margin-top:20px;">
+      <div class="prompt-label">📄 CLAUDE.md 만들기 요청</div>
+      <div class="prompt-text"><span class="comment"># 상황</span>
+나는 휴넷 하이브리드러닝운영팀이야.
+<span class="highlight">코스콤 교육 위탁운영</span> 프로젝트 전용 CLAUDE.md를 만들어줘.
+
+<span class="comment"># 포함할 내용</span>
+- 코스콤 고객 특성 (금융IT, 직원 규모 등)
+- 제안서 작성 규칙 (4열 커리큘럼 표, 휴넷 관점)
+- 참고 자료 폴더 구조
+- 산출물 형식 (Word + PPTX)</div>
+    </div>
+  </div>
+
+  <!-- 스킬 섹션 -->
+  <div class="detail-block">
+    <div class="detail-badge" style="background:var(--violet-soft);color:var(--violet);">⚡ 스킬</div>
+    <h3>스킬(Skills)이란?</h3>
+    <p class="detail-desc">
+      스킬은 Claude에게 <strong>특정 업무의 전문가 모드</strong>를 부여하는 기능입니다.
+      슬래시 명령어(/)로 호출하면, 해당 업무에 최적화된 프로세스와 출력 형식으로 동작합니다.
+    </p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;">
+      <div style="background:var(--surface-alt);border-radius:12px;padding:20px;">
+        <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:8px;">스킬 없이 요청</div>
+        <div style="font-size:13px;color:var(--ink-light);line-height:1.6;">
+          "커리큘럼 만들어줘" → AI가 알아서 형식을 정함 → 매번 결과가 다름 → "아니 이렇게 말고..." 반복
+        </div>
+      </div>
+      <div style="background:var(--accent-soft);border-radius:12px;padding:20px;">
+        <div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:8px;">스킬로 요청</div>
+        <div style="font-size:13px;color:var(--ink-light);line-height:1.6;">
+          "/커리큘럼 만들어줘" → 정해진 프로세스 (정보 수집 → 설계 → 시각화) → 일관된 고품질 결과물
+        </div>
+      </div>
+    </div>
+
+    <!-- 스킬 목록 -->
+    <h4 style="font-size:15px;font-weight:700;color:var(--navy);margin-top:28px;margin-bottom:16px;">우리 팀이 쓰는 주요 스킬</h4>
+
+    <div style="display:flex;flex-direction:column;gap:12px;">
+
+      <div style="background:var(--surface);border-radius:12px;padding:20px 24px;box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.04);display:flex;gap:20px;align-items:flex-start;">
+        <div style="width:44px;height:44px;border-radius:10px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🎨</div>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+            <span style="font-size:15px;font-weight:700;color:var(--navy);">/frontend-design</span>
+            <span style="font-size:11px;padding:2px 8px;border-radius:6px;background:var(--accent-soft);color:var(--accent);font-weight:600;">Anthropic 공식</span>
+          </div>
+          <div style="font-size:13px;color:var(--ink-light);line-height:1.6;">프론트엔드 UI를 만들 때 사용. 제너릭하지 않은, 독특하고 고급스러운 디자인을 생성합니다. 폰트·색상·애니메이션까지 디자인 철학을 먼저 잡고 코드를 작성합니다.</div>
+          <div style="font-size:12px;color:var(--ink-muted);margin-top:4px;">설치: <code style="font-size:12px;background:var(--surface-alt);padding:2px 6px;border-radius:4px;">claude plugins install frontend-design</code></div>
+        </div>
+      </div>
+
+      <div style="background:var(--surface);border-radius:12px;padding:20px 24px;box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.04);display:flex;gap:20px;align-items:flex-start;">
+        <div style="width:44px;height:44px;border-radius:10px;background:var(--emerald-soft);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">📚</div>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+            <span style="font-size:15px;font-weight:700;color:var(--navy);">/curriculum-designer</span>
+            <span style="font-size:11px;padding:2px 8px;border-radius:6px;background:var(--emerald-soft);color:var(--emerald);font-weight:600;">자체 제작</span>
+          </div>
+          <div style="font-size:13px;color:var(--ink-light);line-height:1.6;">교육 대상·주제·시간을 말하면 학습 목표 → 강의 흐름 → 모듈별 상세 내용을 포함한 커리큘럼을 자동 설계합니다. 시각화 위젯으로 타임라인·활동·교육방식을 한눈에 보여줍니다.</div>
+          <div style="font-size:12px;color:var(--ink-muted);margin-top:4px;">대상별 설계 원칙 (신입~임원), 시간별 모듈 배분 (1H~8H), 교육 형태별 조정 (대면/온라인/블렌디드) 내장</div>
+        </div>
+      </div>
+
+      <div style="background:var(--surface);border-radius:12px;padding:20px 24px;box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.04);display:flex;gap:20px;align-items:flex-start;">
+        <div style="width:44px;height:44px;border-radius:10px;background:var(--violet-soft);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🎭</div>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+            <span style="font-size:15px;font-weight:700;color:var(--navy);">/ai-roleplay-generator</span>
+            <span style="font-size:11px;padding:2px 8px;border-radius:6px;background:var(--violet-soft);color:var(--violet);font-weight:600;">자체 제작</span>
+          </div>
+          <div style="font-size:13px;color:var(--ink-light);line-height:1.6;">교육 주제를 말하면 AI 롤플레잉 솔루션 전체를 생성합니다. 시나리오·프롬프트·서버·UI·평가 리포트까지 9인 에이전트 팀이 자동으로 만들어냅니다.</div>
+          <div style="font-size:12px;color:var(--ink-muted);margin-top:4px;">SBI, STAR, GROW, DESC 등 교육학 프레임워크 기반 평가 로직 탑재</div>
+        </div>
+      </div>
+
+      <div style="background:var(--surface);border-radius:12px;padding:20px 24px;box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.04);display:flex;gap:20px;align-items:flex-start;">
+        <div style="width:44px;height:44px;border-radius:10px;background:var(--amber-soft);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">📊</div>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+            <span style="font-size:15px;font-weight:700;color:var(--navy);">/education-report-generator</span>
+            <span style="font-size:11px;padding:2px 8px;border-radius:6px;background:var(--amber-soft);color:var(--amber);font-weight:600;">자체 제작</span>
+          </div>
+          <div style="font-size:13px;color:var(--ink-light);line-height:1.6;">종합평가지(xlsx) + 채점표 + 템플릿(PPTX)을 입력하면, 학습자별 점수·코멘트·차트가 포함된 개인별 피드백 보고서를 일괄 생성합니다.</div>
+          <div style="font-size:12px;color:var(--ink-muted);margin-top:4px;">대규모 교육 과정의 개별 결과보고서 자동화</div>
+        </div>
+      </div>
+
+      <div style="background:var(--surface);border-radius:12px;padding:20px 24px;box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.04);display:flex;gap:20px;align-items:flex-start;">
+        <div style="width:44px;height:44px;border-radius:10px;background:var(--coral-soft);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🔍</div>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+            <span style="font-size:15px;font-weight:700;color:var(--navy);">/codex:review</span>
+            <span style="font-size:11px;padding:2px 8px;border-radius:6px;background:var(--coral-soft);color:var(--coral);font-weight:600;">OpenAI 공식</span>
+          </div>
+          <div style="font-size:13px;color:var(--ink-light);line-height:1.6;">코드 산출물에 대한 자동 코드 리뷰. 버그, 보안 취약점, 품질 이슈를 검출합니다. /codex:adversarial-review로 구현 결정에 도전하는 비판적 리뷰도 가능.</div>
+          <div style="font-size:12px;color:var(--ink-muted);margin-top:4px;">독립 평가관이 코드 평가 시 자동으로 활용. ChatGPT 계정 또는 OpenAI API 키 필요</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 스킬 사용 프롬프트 -->
+    <h4 style="font-size:15px;font-weight:700;color:var(--navy);margin-top:28px;margin-bottom:12px;">스킬 사용 예시</h4>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div class="prompt-example" style="margin:0;">
+        <div class="prompt-label">📚 커리큘럼 설계 스킬</div>
+        <div class="prompt-text"><span class="highlight">/curriculum-designer</span>
+
+<span class="comment"># 교육 정보</span>
+대상: 과장~차장급 중간관리자
+주제: 코칭 리더십
+시간: 4시간
+형태: 대면
+
+<span class="comment"># 요청</span>
+커리큘럼 설계안 만들어줘</div>
+      </div>
+      <div class="prompt-example" style="margin:0;">
+        <div class="prompt-label">📊 결과보고서 스킬</div>
+        <div class="prompt-text"><span class="highlight">/education-report-generator</span>
+
+<span class="comment"># 입력 파일</span>
+- 종합평가지.xlsx (학습자 20명)
+- 채점표.xlsx
+- 템플릿.pptx
+
+<span class="comment"># 요청</span>
+학습자별 개별 결과보고서 생성해줘</div>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top:20px;">
+      <strong>CLAUDE.md + 스킬 = 최강 조합.</strong>
+      CLAUDE.md로 프로젝트 맥락을 세팅하고, 스킬로 반복 업무를 자동화하면
+      <strong>"매번 처음부터 설명하는" 비효율이 사라집니다.</strong>
+      한 번 세팅해두면 팀원 누구나 같은 품질의 결과물을 낼 수 있습니다.
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PART 9. 시작하기 + FAQ (5분)                 -->
+<!-- ═══════════════════════════════════════════ -->
+<section id="start">
+<div class="container">
+  <div class="section-num">09</div>
+  <div class="section-label">Get Started</div>
+  <h2 class="section-title">지금 바로 시작하기</h2>
+  <p class="section-desc">
+    거창하게 시작할 필요 없습니다.
+    내일 업무 중 하나만 AI와 함께 해보세요.
+  </p>
+
+  <div class="cta-section">
+    <h2>첫 번째 AI 업무, 이렇게 시작하세요</h2>
+    <p>복잡한 것부터 하지 마세요. 가장 반복적인 업무 하나를 골라서 시작합니다.</p>
+
+    <div class="cta-steps">
+      <div class="cta-step">
+        <div class="step-num">01</div>
+        <h4>반복 업무 하나 고르기</h4>
+        <p>이메일 정리, 회의록 요약, 보고서 초안 등</p>
+      </div>
+      <div class="cta-step">
+        <div class="step-num">02</div>
+        <h4>현재 상태 정리하기</h4>
+        <p>"지금 뭐가 있고, 뭘 만들어야 하지?"</p>
+      </div>
+      <div class="cta-step">
+        <div class="step-num">03</div>
+        <h4>Claude에게 요청하기</h4>
+        <p>파일 첨부 + 조건 명시 + 결과 형식 지정</p>
+      </div>
+      <div class="cta-step">
+        <div class="step-num">04</div>
+        <h4>결과 다듬기</h4>
+        <p>초안 검수 → 수정 요청 → 완성</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:40px;">
+    <strong>추천 첫 번째 업무:</strong>
+    "이번 주에 쓸 이메일 하나를 Claude에게 초안 작성 요청해보세요."
+    — 상대방, 목적, 핵심 전달 사항을 알려주면 됩니다.
+    결과를 보고 "여기를 이렇게 바꿔줘"라고 수정하며 대화하는 감각을 익히세요.
+  </div>
+
+  <!-- 10분 실습 타임 박스 -->
+  <div style="background:var(--accent-soft);border-radius:var(--radius);padding:36px 40px;margin-top:32px;">
+    <h3 style="font-size:22px;font-weight:700;color:var(--navy);margin-bottom:8px;">지금 해봅시다 — 10분 실습 — 직접 만들어보기</h3>
+    <p style="font-size:15px;color:var(--ink-light);margin-bottom:20px;">지금 바로 <a href="https://claude.ai" target="_blank" style="color:var(--accent);font-weight:600;">claude.ai</a>를 열고 아래 중 하나를 해보세요.</p>
+    <div style="display:flex;flex-direction:column;gap:16px;">
+
+      <!-- 실습 A -->
+      <div style="background:var(--surface);border-radius:12px;padding:20px 24px;box-shadow:var(--shadow-sm);">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px;">
+          <div style="width:36px;height:36px;border-radius:10px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex-shrink:0;">A</div>
+          <div>
+            <div style="font-size:16px;font-weight:700;color:var(--navy);">우리 팀 CLAUDE.md 만들기 (10분)</div>
+            <div style="font-size:13px;color:var(--ink-light);margin-top:2px;">지금 바로 claude.ai를 열고, 우리 팀 전용 CLAUDE.md를 만들어봅시다.</div>
+          </div>
+        </div>
+        <div class="prompt-example" style="margin:0;">
+          <div class="prompt-label">실습 프롬프트</div>
+          <div class="prompt-text"><span class="comment"># 상황</span>
+나는 휴넷 하이브리드러닝운영팀이야.
+우리 팀이 Claude를 쓸 때 매번 같은 설명을 반복하지 않도록
+팀 전용 <span class="highlight">CLAUDE.md</span> 파일을 만들어줘.
+
+<span class="comment"># 포함할 내용</span>
+- 팀 소개 (하이브리드러닝운영팀, 기업교육 위탁운영)
+- AI 사용 규칙 (민감정보 금지, 검수 필수 등)
+- 산출물 기본 형식 (~입니다 체, 표 중심)
+- 자주 쓰는 업무 목록 (안내 메일, 커리큘럼, 보고서 등)</div>
+        </div>
+        <p style="font-size:13px;color:var(--accent-dark);margin-top:12px;line-height:1.65;">
+          이 파일을 프로젝트 폴더에 저장하면, 다음부터 AI가 우리 팀 맥락을 자동으로 알고 시작합니다.
+        </p>
+      </div>
+
+      <!-- 실습 B -->
+      <div style="background:var(--surface);border-radius:12px;padding:20px 24px;box-shadow:var(--shadow-sm);">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px;">
+          <div style="width:36px;height:36px;border-radius:10px;background:var(--violet);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex-shrink:0;">B</div>
+          <div>
+            <div style="font-size:16px;font-weight:700;color:var(--navy);">나만의 업무 스킬 설계하기 (10분)</div>
+            <div style="font-size:13px;color:var(--ink-light);margin-top:2px;">가장 반복하는 업무를 스킬로 만들어봅시다.</div>
+          </div>
+        </div>
+        <div class="prompt-example" style="margin:0;">
+          <div class="prompt-label">실습 프롬프트</div>
+          <div class="prompt-text"><span class="comment"># 상황</span>
+나는 교육 운영팀인데, <span class="highlight">"교육 안내 메일"</span>을 매번 비슷한 형태로 작성해.
+
+<span class="comment"># 요청</span>
+이 반복 업무를 자동화할 수 있는 스킬 설계서를 만들어줘.
+- 입력값: 어떤 정보를 받아야 하는지 (과정명, 일시, 장소 등)
+- 처리 규칙: 톤, 형식, 필수 포함 내용
+- 출력물: 완성된 메일 초안
+- 변형: 사전 안내 / 리마인더 / 사후 안내 구분</div>
+        </div>
+        <p style="font-size:13px;color:var(--accent-dark);margin-top:12px;line-height:1.65;">
+          이렇게 설계한 스킬을 Claude Code에 등록하면, '/교육안내메일' 한 줄로 메일을 생성할 수 있습니다.
+        </p>
+      </div>
+
+    </div>
+    <p style="font-size:14px;color:var(--accent-dark);margin-top:20px;line-height:1.65;">
+      10분이면 됩니다. 결과를 보고 "여기를 이렇게 바꿔줘"라고 말해보세요. 그게 AI와 일하는 감각의 시작입니다.
+    </p>
+  </div>
+
+
+  <!-- 체크리스트 박스 -->
+  <div style="background:var(--surface);border-radius:var(--radius);padding:36px 40px;margin-top:24px;box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.04);">
+    <h3 style="font-size:20px;font-weight:700;color:var(--navy);margin-bottom:20px;">내일부터 AI 활용 체크리스트</h3>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <label style="display:flex;align-items:center;gap:12px;font-size:15px;color:var(--ink);cursor:pointer;">
+        <input type="checkbox" style="width:20px;height:20px;accent-color:var(--accent);cursor:pointer;">
+        <span>claude.ai 가입 완료</span>
+      </label>
+      <label style="display:flex;align-items:center;gap:12px;font-size:15px;color:var(--ink);cursor:pointer;">
+        <input type="checkbox" style="width:20px;height:20px;accent-color:var(--accent);cursor:pointer;">
+        <span>반복 업무 1개 선정</span>
+      </label>
+      <label style="display:flex;align-items:center;gap:12px;font-size:15px;color:var(--ink);cursor:pointer;">
+        <input type="checkbox" style="width:20px;height:20px;accent-color:var(--accent);cursor:pointer;">
+        <span>첫 프롬프트 작성 (WHY + WHAT 명확하게)</span>
+      </label>
+      <label style="display:flex;align-items:center;gap:12px;font-size:15px;color:var(--ink);cursor:pointer;">
+        <input type="checkbox" style="width:20px;height:20px;accent-color:var(--accent);cursor:pointer;">
+        <span>결과물 검수 → 수정 요청까지 대화</span>
+      </label>
+      <label style="display:flex;align-items:center;gap:12px;font-size:15px;color:var(--ink);cursor:pointer;">
+        <input type="checkbox" style="width:20px;height:20px;accent-color:var(--accent);cursor:pointer;">
+        <span>자주 쓰는 프롬프트 1개 저장</span>
+      </label>
+      <label style="display:flex;align-items:center;gap:12px;font-size:15px;color:var(--ink);cursor:pointer;">
+        <input type="checkbox" style="width:20px;height:20px;accent-color:var(--accent);cursor:pointer;">
+        <span>동료에게 "나 이거 AI로 해봤는데" 공유</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- FAQ (통합) -->
+  <h3 style="font-size:22px;font-weight:700;color:var(--navy);margin-top:64px;margin-bottom:8px;">자주 묻는 질문</h3>
+  <p style="font-size:15px;color:var(--ink-light);margin-bottom:24px;">AI 활용을 시작하면서 가장 많이 받는 질문들을 정리했습니다.</p>
+
+  <div class="detail-section">
+    <div class="detail-block" style="background:var(--surface);">
+      <h3>Q. API 비용은 얼마나 드나요?</h3>
+      <p style="font-size:15px;color:var(--ink-light);line-height:1.7;margin-top:12px;">
+        Claude Pro 월 $20(약 2.7만원)이면 개인 업무용으로 충분합니다. 팀 단위는 Team 플랜($30/인). API 사용 시 토큰 기반 과금이지만, 운영팀 업무 수준이면 월 1~3만원 내외입니다.
+      </p>
+    </div>
+
+    <div class="detail-block" style="background:var(--surface-alt);">
+      <h3>Q. 회사에서 써도 되나요? 보안은?</h3>
+      <p style="font-size:15px;color:var(--ink-light);line-height:1.7;margin-top:12px;">
+        Claude Pro/Team은 입력 데이터를 학습에 사용하지 않습니다. 다만 고객 개인정보, 사내 기밀은 입력하지 마세요. 회사 보안 정책 확인 후 사용을 권장합니다.
+      </p>
+    </div>
+
+    <div class="detail-block" style="background:var(--surface);">
+      <h3>Q. AI가 만든 결과물을 그대로 써도 되나요?</h3>
+      <p style="font-size:15px;color:var(--ink-light);line-height:1.7;margin-top:12px;">
+        초안으로 활용하되 반드시 검수가 필요합니다. 특히 숫자, 날짜, 고유명사, 인용 출처는 원본 대조. 외부 제출물은 표절 검사를 권장합니다.
+      </p>
+    </div>
+
+    <div class="detail-block" style="background:var(--surface-alt);">
+      <h3>Q. 영어만 잘 되는 거 아닌가요?</h3>
+      <p style="font-size:15px;color:var(--ink-light);line-height:1.7;margin-top:12px;">
+        Claude는 한국어 성능이 매우 높습니다. 한국어로 요청하고 한국어로 답변받을 수 있습니다. 다만 전문 용어가 많은 분야는 용어를 직접 지정해주면 더 정확합니다.
+      </p>
+    </div>
+
+    <div class="detail-block" style="background:var(--surface);">
+      <h3>Q. ChatGPT랑 뭐가 다른가요?</h3>
+      <p style="font-size:15px;color:var(--ink-light);line-height:1.7;margin-top:12px;">
+        둘 다 훌륭한 도구입니다. Claude는 긴 문서 처리(20만자+), 파일 첨부, 코드 작성에 강점이 있습니다. 중요한 건 도구 선택보다 잘 쓰는 습관입니다.
+      </p>
+    </div>
+
+
+    <div class="detail-block" style="background:var(--surface-alt);">
+      <h3>Q. 프롬프트를 외워야 하나요?</h3>
+      <p style="font-size:15px;color:var(--ink-light);line-height:1.7;margin-top:12px;">
+        외울 필요 없습니다. <strong>WHY(왜 하는지)와 WHAT(뭘 원하는지)</strong>만 기억하면 됩니다. 자주 쓰는 요청은 템플릿으로 저장해두면 편리합니다.
+      </p>
+    </div>
+  </div>
+</div>
+</section>
+<!-- ═══════ FOOTER ═══════ -->
+<footer>
+  <div class="container">
+    <p>HUNET 리더스아카데미팀 · AI 업무 활용 가이드 · 2026.04</p>
+    <p style="margin-top:4px;font-size:12px;color:var(--ink-muted);">
+      질문이나 도움이 필요하면 리더스아카데미팀으로 연락주세요
+    </p>
+  </div>
+</footer>
+
+<script>
+// ─── Scroll Reveal ───
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('section:not(.hero)').forEach(s => observer.observe(s));
+
+// ─── TOC Dots ───
+const sections = [
+  { id: 'hero', label: '시작' },
+  { id: 'why', label: '왜 AI인가' },
+  { id: 'caution', label: '주의사항' },
+  { id: 'how', label: '잘 쓰는 법' },
+  { id: 'cases', label: '활용 사례' },
+  { id: 'org', label: 'AI 조직도' },
+  { id: 'ops', label: '운영팀 활용' },
+  { id: 'tools', label: '도구 & 세팅' },
+  { id: 'cowork', label: 'CLAUDE.md & 스킬' },
+  { id: 'start', label: '시작하기' },
+];
+const tocContainer = document.getElementById('tocDots');
+sections.forEach(s => {
+  const dot = document.createElement('div');
+  dot.className = 'toc-dot';
+  dot.dataset.label = s.label;
+  dot.addEventListener('click', () => {
+    document.getElementById(s.id).scrollIntoView({ behavior: 'smooth' });
+  });
+  tocContainer.appendChild(dot);
+});
+const dots = tocContainer.querySelectorAll('.toc-dot');
+function updateToc() {
+  let current = 0;
+  sections.forEach((s, i) => {
+    const el = document.getElementById(s.id);
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      if (rect.top <= window.innerHeight / 2) current = i;
+    }
+  });
+  dots.forEach((d, i) => d.classList.toggle('active', i === current));
+}
+window.addEventListener('scroll', updateToc, { passive: true });
+updateToc();
+</script>
+
+</body>
+</html>
